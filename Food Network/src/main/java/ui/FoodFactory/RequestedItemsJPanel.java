@@ -16,11 +16,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/FoodProcessorUI/RequestedItemsJPanel.java
 import model.FoodProcessItem.FoodProcessItemDirectory;
-=======
-import model.FoodFactory.FoodProcessItemDirectory;
->>>>>>> NilayRaut:Food Network/src/main/java/ui/FoodFactory/RequestedItemsJPanel.java
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import ui.MainLoginJPanel;

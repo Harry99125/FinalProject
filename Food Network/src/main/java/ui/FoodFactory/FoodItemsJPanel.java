@@ -18,13 +18,10 @@ import database.Connection;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.Business.Business;
-
-
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/FoodProcessorUI/FoodItemsJPanel.java
 import model.FoodProcessItem.FoodProcessItemDirectory;
-=======
-import model.FoodFactory.FoodProcessItemDirectory;
->>>>>>> NilayRaut:Food Network/src/main/java/ui/FoodFactory/FoodItemsJPanel.java
+
+
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 

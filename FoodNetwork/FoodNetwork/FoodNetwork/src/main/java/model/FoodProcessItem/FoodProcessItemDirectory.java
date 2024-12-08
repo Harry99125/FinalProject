@@ -98,7 +98,7 @@ public class FoodProcessItemDirectory {
 
   
 
-<<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/model/FoodProcessItem/FoodProcessItemDirectory.java
+
     public void updateSupplierDetails(FoodProcessItemDirectory fd, MongoDatabase database) {
         System.out.println("Updating supplier details "+fd.getId());
        fps .updatefoodProcessor(fd, database);
@@ -106,11 +106,11 @@ public class FoodProcessItemDirectory {
  public void readincomingdata(FoodProcessItemDirectory fd, MongoDatabase database) {
        
         fps .readIncomingData(fd, database);
-========
+
     public void updateSupplierDetails(FoodProcessItemDirectory medicalEquipmentSupplier, MongoDatabase database) {
         System.out.println("Updating supplier details "+medicalEquipmentSupplier.getId());
 //        medicalEquipmentService.updateMedicalEquipmentSupplier(medicalEquipmentSupplier, database);
->>>>>>>> NilayRaut:Food Network/src/main/java/model/FoodFactory/FoodProcessItemDirectory.java
+
     }
 
   

@@ -1,15 +1,16 @@
-<<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/model/FoodProcessItem/FoodProcessItemDirectory.java
+
 package model.FoodProcessItem;
-========
-package model.FoodFactory;
->>>>>>>> NilayRaut:Food Network/src/main/java/model/FoodFactory/FoodProcessItemDirectory.java
+
+
+
 
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import service.MedicalEquipmentService;
+
 
 import java.util.ArrayList;
+import service.FoodProcessorService;
 
 public class FoodProcessItemDirectory {
 
@@ -77,14 +78,14 @@ public class FoodProcessItemDirectory {
         this.FoodProcessManagerId = FoodProcessManagerId;
     }
 
-    public MedicalEquipmentService getMedicalEquipmentService() {
-        return medicalEquipmentService;
+    public FoodProcessorService getMedicalEquipmentService() {
+        return fps;
     }
 
-    public void setMedicalEquipmentService(MedicalEquipmentService medicalEquipmentService) {
-        this.medicalEquipmentService = medicalEquipmentService;
+    public void setMedicalEquipmentService(FoodProcessorService fps) {
+        this.fps = fps;
     }
-    MedicalEquipmentService medicalEquipmentService = new MedicalEquipmentService();
+    FoodProcessorService fps = new FoodProcessorService();
 
     public FoodProcessItemDirectory(Document organization, Document userLogin) {
         this.id = organization.getObjectId("_id");
@@ -98,20 +99,12 @@ public class FoodProcessItemDirectory {
 
   
 
-<<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/model/FoodProcessItem/FoodProcessItemDirectory.java
+
     public void updateSupplierDetails(FoodProcessItemDirectory fd, MongoDatabase database) {
         System.out.println("Updating supplier details "+fd.getId());
        fps .updatefoodProcessor(fd, database);
     }
- public void readincomingdata(FoodProcessItemDirectory fd, MongoDatabase database) {
-       
-        fps .readIncomingData(fd, database);
-========
-    public void updateSupplierDetails(FoodProcessItemDirectory medicalEquipmentSupplier, MongoDatabase database) {
-        System.out.println("Updating supplier details "+medicalEquipmentSupplier.getId());
-//        medicalEquipmentService.updateMedicalEquipmentSupplier(medicalEquipmentSupplier, database);
->>>>>>>> NilayRaut:Food Network/src/main/java/model/FoodFactory/FoodProcessItemDirectory.java
-    }
+
 
   
 }

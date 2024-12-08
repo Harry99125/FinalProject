@@ -10,11 +10,8 @@ import database.CRUDOperations;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Business.Business;
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/FoodProcessorUI/AdditemJPanel.java
 import model.FoodProcessItem.FoodProcessItemDirectory;
-=======
-import model.FoodFactory.FoodProcessItemDirectory;
->>>>>>> NilayRaut:Food Network/src/main/java/ui/FoodFactory/AdditemJPanel.java
+
 import org.bson.Document;
 
 

@@ -8,13 +8,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import database.Connection;
 import model.Business.Business;
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/FoodProcessorUI/FoodProcessorAdminWorkAreaJPanel.java
-import model.FoodProcessItem.FoodProcessItemDirectory;
-=======
-import model.FoodFactory.FoodProcessItemDirectory;
->>>>>>> NilayRaut:Food Network/src/main/java/ui/FoodFactory/FoodProcessorAdminWorkAreaJPanel.java
+
 import javax.swing.*;
 import java.awt.*;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 import ui.MainLoginJPanel;
 
 
@@ -35,12 +32,7 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.cardSequencePanel = cardSequencePanel;
         this.fpid=fpid;
         this.database = database;
-        this.business = business;
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/FoodProcessorUI/FoodProcessorAdminWorkAreaJPanel.java
-       
-   
-=======
->>>>>>> NilayRaut:Food Network/src/main/java/ui/FoodFactory/FoodProcessorAdminWorkAreaJPanel.java
+
         populateSupplierDetails();
         txtEquipmentName1.setEnabled(false);
         txtEquipmentManagerName1.setEnabled(false);

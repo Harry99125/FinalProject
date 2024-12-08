@@ -13,15 +13,12 @@ import model.Business.Business;
 import javax.swing.*;
 import java.awt.*;
 import model.Farmer.Farmer;
-import model.FoodFactory.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
+
 
 import model.Hospital.Hospital;
 
-<<<<<<< HEAD:FoodNetwork/FoodNetwork/FoodNetwork/src/main/java/ui/MainLoginJPanel.java
-import model.FoodProcessItem.FoodProcessItemDirectory;
-=======
-import model.MedicalEquipment.MedicalEquipmentSupplier;
->>>>>>> NilayRaut:Food Network/src/main/java/ui/MainLoginJPanel.java
+
 import model.Personnel.Doctor;
 import model.Pharmacy.Pharmacy;
 import model.TrainingCenter.TrainingCenter;
@@ -43,7 +40,7 @@ import ui.Farmer.FarmerAdminWorkAreaJPanel;
 import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
 import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
-import ui.medicalEquipment.MedicalEquipmentAdminWorkAreaJPanel;
+
 import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
 
 
