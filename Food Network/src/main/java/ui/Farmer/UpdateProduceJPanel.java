@@ -16,7 +16,7 @@ import model.Farmer.Produce;
 
 import java.awt.*;
 import org.bson.Document;
-
+import ui.Hospital.DoctorListJPanel;
 
 public class UpdateProduceJPanel extends javax.swing.JPanel {
 
@@ -43,14 +43,14 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         if (produceName != null) {
             String farmerName = farmer.getFarmerName();
             Document prod = crud.getFirstRecordByKey("produceName", produceName, this.database.getCollection("Produce"));
-            Document farm = crud.getFirstRecordByKey("farmerName", farmerName, this.database.getCollection("Farm"));
+            Document farm = crud.getFirstRecordByKey("farmName", farmerName, this.database.getCollection("Farm"));
             String prodId = prod.getObjectId("_id").toString();
             String farmId = farm.getObjectId("_id").toString();
             Document farmerProduce = crud.getRecordByTwoKeys("produceId", prodId, "farmerId", farmId, collection);
 
             txtProduceName.setText(prod.getString("produceName"));
             txtProduceUsage.setText(prod.getString("produceUsage"));
-            txtProduceComposition.setText(prod.getString("produceComposition"));
+            txtProduceComposition.setText(prod.getString("produceCategory"));
             txtProducePrice.setText(farmerProduce.getString("farmerPrice"));
             txtProduceQuantity.setText(String.valueOf(farmerProduce.getInteger("stockQuantity")));
             txtProduceDescription.setText(prod.getString("produceDescription"));
@@ -96,6 +96,7 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         txtProduceQuantity = new javax.swing.JTextField();
         btnupdate = new javax.swing.JButton();
         lblProduceDetails = new javax.swing.JLabel();
+        btnDeleteBlog = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(206, 238, 251));
 
@@ -152,40 +153,47 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         lblProduceDetails.setText("PRODUCE DETAILS");
         lblProduceDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        btnDeleteBlog.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        btnDeleteBlog.setText("Back");
+        btnDeleteBlog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteBlogActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(lblProduceDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtProduceComposition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProduceUsage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProduceName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7))
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtProducePrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProduceQuantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(103, 103, 103))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtProduceComposition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProduceUsage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProduceName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtProducePrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProduceQuantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDeleteBlog, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblProduceDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(111, 111, 111))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, txtProduceComposition, txtProduceName, txtProducePrice, txtProduceQuantity, txtProduceUsage});
@@ -193,9 +201,11 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblProduceDetails)
-                .addGap(60, 60, 60)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblProduceDetails)
+                    .addComponent(btnDeleteBlog))
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtProduceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -225,6 +235,8 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtProduceName, txtProduceUsage});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDeleteBlog, lblProduceDetails});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,7 +312,6 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Produce updated successfully!");
             }
 
-            backAction();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -313,6 +324,14 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProduceCompositionActionPerformed
 
+    private void btnDeleteBlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteBlogActionPerformed
+        // TODO add your handling code here:
+        ProduceListJPanel produceListJPanel = new ProduceListJPanel(cardSequencePanel, business, farmer, database);
+        cardSequencePanel.add("ProduceListJPanel", produceListJPanel);
+        CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
+        layout.next(cardSequencePanel);
+    }//GEN-LAST:event_btnDeleteBlogActionPerformed
+
     private void backAction() {
         cardSequencePanel.remove(this);
         CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
@@ -322,6 +341,7 @@ public class UpdateProduceJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteBlog;
     private javax.swing.JButton btnupdate;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

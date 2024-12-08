@@ -237,7 +237,7 @@ public class AddFarmerJPanel extends javax.swing.JPanel {
                 .append("farmerName", farmerName)
                 .append("farmemail", farmerEmail)
                 .append("organizationType", "Farm")
-                .append("FarmAdminId", String.valueOf(userDoc.getObjectId("_id")));
+                .append("farmAdminId", String.valueOf(userDoc.getObjectId("_id")));
 
         retailerCollection.insertOne(farm);
 
