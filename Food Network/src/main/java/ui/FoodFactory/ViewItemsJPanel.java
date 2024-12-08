@@ -1,18 +1,78 @@
+package ui.FoodFactory;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import database.CRUDOperations;
+import database.Connection;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import model.Business.Business;
+import model.Farmer.Farmer;
+import model.FoodProcessItem.FoodProcessItem;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.FoodProcessorUI;
+
 
 
 public class ViewItemsJPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EquipmentsJPanel
-     */
-    public ViewItemsJPanel() {
+    JPanel cardSequencePanel;
+    Business business;
+    Farmer farmer;
+    MongoDatabase database;
+    MongoCollection<Document> collection;
+    MongoCollection<Document> produceCollection;
+    CRUDOperations crud = new CRUDOperations();
+
+    public  ViewItemsJPanel(JPanel cardSequencePanel, Business business, Farmer farmer, MongoDatabase prevdatabase) {
         initComponents();
-       
+        this.cardSequencePanel = cardSequencePanel;
+        this.business = business;
+        this.farmer = farmer;
+        this.database = new Connection().connectToDatabase();
+        this.collection = this.database.getCollection("FarmerProduce");
+        this.produceCollection = this.database.getCollection("Produce");
+        populateTable();
+    }
+    
+     private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblEquipments.getModel();
+        model.setRowCount(0); // Clear existing rows in the table
+
+        String farmerId = farmer.getId().toString();
+        FindIterable<Document> farmerProduces = crud.getRecordsByKey("farmerId", farmerId, collection);
+
+        try (MongoCursor<Document> cursor = farmerProduces.iterator()) {
+            while (cursor.hasNext()) {
+                Document farmerProduceDoc = cursor.next();
+                ObjectId produceId = new ObjectId(farmerProduceDoc.getString("produceId"));
+
+                // Fetch produce details
+                Document produceDoc = crud.getFirstRecordByKey("_id", produceId, produceCollection);
+
+                if (produceDoc != null) {
+                    Object[] row = new Object[]{
+                        produceDoc.getString("produceName"),
+                        produceDoc.getString("produceCategory"),
+                        farmerProduceDoc.getInteger("stockQuantity")
+                    };
+                    model.addRow(row); // Add the row to the table model
+                } else {
+                    System.err.println("No produce found for ID: " + produceId);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error populating table: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error fetching produce data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

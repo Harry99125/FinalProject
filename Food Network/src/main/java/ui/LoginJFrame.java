@@ -207,7 +207,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void btnRetailerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetailerLoginActionPerformed
         // TODO add your handling code here:
-        goToLoginPage("TrainingCenter");
+        goToLoginPage("Retailer");
     }//GEN-LAST:event_btnRetailerLoginActionPerformed
 
     private void btnDistributorLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDistributorLoginActionPerformed
@@ -217,7 +217,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void btnRestaurantManagerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurantManagerLoginActionPerformed
         // TODO add your handling code here:
-        goToLoginPage("Supplier");
+        goToLoginPage("Restaurant");
     }//GEN-LAST:event_btnRestaurantManagerLoginActionPerformed
 
     private void btnLivestockLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLivestockLoginActionPerformed
