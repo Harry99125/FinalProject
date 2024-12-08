@@ -15,7 +15,7 @@ import java.awt.*;
 
 import model.Hospital.Hospital;
 
-import model.MedicalEquipment.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 import model.Personnel.Doctor;
 import model.Pharmacy.Pharmacy;
 import model.TrainingCenter.TrainingCenter;
@@ -28,7 +28,7 @@ import ui.Doctor.DoctorMainJPanel;
 import ui.Hospital.HospitalAdminWorkAreaJPanel;
 import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
 import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
-import ui.medicalEquipment.MedicalEquipmentAdminWorkAreaJPanel;
+
 
 import ui.Hospital.HospitalAdminWorkAreaJPanel;
 
@@ -223,13 +223,14 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 adminId = "userId";
             }
             Document userLogin = crud.getFirstRecordByKey("username", userNameTxtField.getText(), collection);
+             System.out.println(userLogin);
             if (userLogin == null) {
                 JOptionPane.showMessageDialog(null, "User not part of the organization");
                 return;
             }
             Document organization = crud.getRecordByTwoKeys(organizationName, cmbOrgnization.getSelectedItem().toString(), adminId, String.valueOf(user.getObjectId("_id")), organizationCollection);
             if (organization == null) {
-                JOptionPane.showMessageDialog(null, "User not part of the organization");
+                JOptionPane.showMessageDialog(null, "FoodProcessItemDirectorypart of the organization");
                 return;
             }
             JOptionPane.showMessageDialog(null, "Login Successful");

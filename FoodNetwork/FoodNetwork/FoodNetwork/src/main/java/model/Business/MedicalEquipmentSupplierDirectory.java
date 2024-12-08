@@ -1,9 +1,9 @@
 package model.Business;
 
-import model.MedicalEquipment.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import java.util.ArrayList;
-import model.MedicalEquipment.FoodProcessItem;
+import model.FoodProcessItem.FoodProcessItem;
 import org.bson.types.ObjectId;
 
 public class MedicalEquipmentSupplierDirectory {

@@ -1,4 +1,4 @@
-package model.MedicalEquipment;
+package model.FoodProcessItem;
 
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -87,18 +87,18 @@ public class FoodProcessItemDirectory {
     public FoodProcessItemDirectory(Document organization, Document userLogin) {
         this.id = organization.getObjectId("_id");
         System.out.println("Supplier id: "+this.id);
-        this.supplierName = organization.getString("supplierName");
-        this.supplierAddress = organization.getString("supplierAddress");
-        this.supplierContact = organization.getString("supplierContact");
-        this.supplierEmail = organization.getString("supplierEmail");
-        this.FoodProcessManagerId = userLogin.getString("name");
+        this.supplierName = organization.getString("foodprocessorName");
+        this.supplierAddress = organization.getString("factoryAddress");
+        this.supplierContact = organization.getString("factoryContact");
+        this.supplierEmail = organization.getString("factoryEmail");
+        this.FoodProcessManagerId = userLogin.getString("foodprocessorAdminId");
     }
 
   
 
     public void updateSupplierDetails(FoodProcessItemDirectory fd, MongoDatabase database) {
         System.out.println("Updating supplier details "+fd.getId());
-       fps .updateMedicalEquipmentSupplier(fd, database);
+       fps .updatefoodProcessor(fd, database);
     }
  public void readincomingdata(FoodProcessItemDirectory fd, MongoDatabase database) {
        

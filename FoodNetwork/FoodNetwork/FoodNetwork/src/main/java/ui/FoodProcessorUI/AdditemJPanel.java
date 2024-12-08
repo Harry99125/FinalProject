@@ -10,7 +10,7 @@ import database.CRUDOperations;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Business.Business;
-import model.MedicalEquipment.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 import org.bson.Document;
 
 public class AdditemJPanel extends javax.swing.JPanel {

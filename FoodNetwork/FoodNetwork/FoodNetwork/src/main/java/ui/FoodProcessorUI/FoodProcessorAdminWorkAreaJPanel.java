@@ -8,7 +8,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import database.Connection;
 import model.Business.Business;
-import model.MedicalEquipment.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 import javax.swing.*;
 import java.awt.*;
 import ui.MainLoginJPanel;
@@ -32,7 +32,7 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.database = database;
         this.business = business;
        
-        fpid.readincomingdata(fpid, database);
+   
         populateSupplierDetails();
         btnSaveEquipment1.setEnabled(false);
         setFlag(false);
@@ -41,6 +41,7 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
     }
 
     private void populateSupplierDetails() {
+           //  fpid.readincomingdata(fpid, database);
         txtEquipmentName1.setText(fpid.getSupplierName());
         txtEquipmentLocation1.setText(fpid.getSupplierAddress());
         txtEquipmentContact1.setText(fpid.getSupplierContact());
@@ -330,7 +331,7 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
          fpid.setSupplierAddress(txtEquipmentLocation1.getText());
         fpid.setSupplierContact(txtEquipmentContact1.getText());
          fpid.setSupplierEmail(txtEquipmentManagerName2.getText());
-         System.out.println(fpid.getSupplierContact());
+        
         fpid.updateSupplierDetails(fpid, database);
          JOptionPane.showMessageDialog(null, "Supplier Details Updated Successfully");
          setFlag(false);

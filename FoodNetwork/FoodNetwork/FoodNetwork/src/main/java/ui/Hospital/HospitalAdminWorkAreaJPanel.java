@@ -223,6 +223,12 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblPharmacyManagerName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblPharmacyManagerName.setText("Manager Name :");
 
+        txtHospitalManagerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHospitalManagerNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -375,6 +381,10 @@ public class HospitalAdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) HospitalCardLayout.getLayout();
         layout.next(HospitalCardLayout);
     }//GEN-LAST:event_addRequstedEquipmentsActionPerformed
+
+    private void txtHospitalManagerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHospitalManagerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHospitalManagerNameActionPerformed
 
     private void setFlag(boolean b) {
         txtHospitalLocation.setEnabled(b);

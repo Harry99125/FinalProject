@@ -16,7 +16,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
-import model.MedicalEquipment.FoodProcessItemDirectory;
+import model.FoodProcessItem.FoodProcessItemDirectory;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import ui.MainLoginJPanel;

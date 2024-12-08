@@ -1,4 +1,4 @@
-package model.MedicalEquipment;
+package model.FoodProcessItem;
 
 
 import org.bson.types.ObjectId;
