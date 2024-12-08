@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import model.Business.Business;
 import ui.Blogs.BlogSelectorJPanel;
 import ui.Blogs.BlogUploadJPanel;
-import ui.medicalEquipment.AddMedicalEquipmentJPanel;
 
 
 public class BusinessJPanel extends javax.swing.JPanel {

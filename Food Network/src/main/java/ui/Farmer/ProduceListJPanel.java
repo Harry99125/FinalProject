@@ -4,42 +4,27 @@
  */
 package ui.Farmer;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-import com.mongodb.Block;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.opencsv.CSVWriter;
 import database.CRUDOperations;
 import database.Connection;
 import model.Business.Business;
 import model.Farmer.Farmer;
-import model.Farmer.Produce;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import service.FileSaver;
-
 
 public class ProduceListJPanel extends javax.swing.JPanel {
 
