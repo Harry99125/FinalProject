@@ -228,14 +228,14 @@ public class AddRetailerJPanel extends javax.swing.JPanel {
         Document userDoc = userCollection.find(new Document("username", retailerName)).first();
 
         // Add the retailer to retailerCollection
-        Document retailer = new Document("RetailerName", retailerName)
+        Document retailer = new Document("retailerName", retailerName)
                 .append("location", retailerLocation)
                 .append("contact", retailerContact)
                 .append("managerName", retailerManagerName)
                 .append("managerPassword", retailerManagerPass)
                 .append("email", retailerEmail)
                 .append("organizationType", "Retailer")
-                .append("RetailerAdminId",  String.valueOf(userDoc.getObjectId("_id")));
+                .append("retailerAdminId",  String.valueOf(userDoc.getObjectId("_id")));
         
         retailerCollection.insertOne(retailer);
 

@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import model.Business.Business;
 import ui.Blogs.BlogSelectorJPanel;
 import ui.Blogs.BlogUploadJPanel;
-//import ui.medicalEquipment.AddMedicalEquipmentJPanel;
 
 
 public class BusinessJPanel extends javax.swing.JPanel {
@@ -60,11 +59,6 @@ public class BusinessJPanel extends javax.swing.JPanel {
 
         btnRestaurant.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnRestaurant.setText("Restuarant ");
-        btnRestaurant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestaurantActionPerformed(evt);
-            }
-        });
 
         btnFoodProcessor.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnFoodProcessor.setText("Food Processor");
@@ -201,13 +195,6 @@ public class BusinessJPanel extends javax.swing.JPanel {
     private void btnLivestockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLivestockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLivestockActionPerformed
-
-    private void btnRestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurantActionPerformed
-           RestaurantAdminJPanel RestaurantAdminJPanel = new RestaurantAdminJPanel(AdminLayout, database, business);
-        AdminLayout.add("TrainingCenterAdminJPanel", RestaurantAdminJPanel);
-        CardLayout layout = (CardLayout) AdminLayout.getLayout();
-        layout.next(AdminLayout);
-    }//GEN-LAST:event_btnRestaurantActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

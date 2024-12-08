@@ -48,7 +48,7 @@ public class FarmAdminJPanel extends javax.swing.JPanel {
         FindIterable<Document> farmDetails = trainingCenterCollection.find();
         for (Document farm : farmDetails) {
             // Retrieve the corresponding farmer user document using FarmerAdminId
-            Document farmerUser = crudOperations.getFirstRecordByKey("_id", new ObjectId(farm.get("FarmerAdminId").toString()), userCollection);
+            Document farmerUser = crudOperations.getFirstRecordByKey("_id", new ObjectId(farm.get("farmAdminId").toString()), userCollection);
 
             // Add row data to the table model
             model.addRow(new Object[]{

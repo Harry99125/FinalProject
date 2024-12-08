@@ -102,6 +102,7 @@ private void populateFarmerDetails() {
         btnFarmerList = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        btnOrder = new javax.swing.JButton();
 
         jSplitPane2.setDividerLocation(150);
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -252,34 +253,46 @@ private void populateFarmerDetails() {
             }
         });
 
+        btnOrder.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btnOrder.setText("Order List");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
                 .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
+                .addGap(35, 35, 35)
+                .addComponent(btnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(btnFarmerList, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(32, 32, 32)
                 .addComponent(btnLogout)
-                .addGap(84, 84, 84))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFarmerList, btnHome, btnLogout});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFarmerList, btnHome, btnLogout, btnOrder});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFarmerList, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnOrder)
+                        .addComponent(btnFarmerList, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnHome))
-                .addGap(52, 52, 52))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFarmerList, btnHome, btnLogout});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnFarmerList, btnHome, btnLogout, btnOrder});
 
         jSplitPane2.setTopComponent(jPanel3);
 
@@ -317,15 +330,20 @@ private void populateFarmerDetails() {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
-        FarmerAdminWorkAreaJPanel farmerAdminWorkAreaJPanel = new FarmerAdminWorkAreaJPanel(CardSequencePanel, farmer, database,business);
-        CardSequencePanel.add("PharmacyAdminWorkAreaJPanel", farmerAdminWorkAreaJPanel);
-        CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
-        layout.next(CardSequencePanel);
+        
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void txtFarmerAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFarmerAddressKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFarmerAddressKeyReleased
+
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        // TODO add your handling code here:
+        OrderListJPanel orderListJPanel = new OrderListJPanel(FarmerCardLayout,business ,farmer, database);
+        FarmerCardLayout.add("OrderListJPanel", orderListJPanel);
+        CardLayout layout = (CardLayout) FarmerCardLayout.getLayout();
+        layout.next(FarmerCardLayout);
+    }//GEN-LAST:event_btnOrderActionPerformed
 
     public List<String> getPlaceAutocomplete(String input) throws IOException, InterruptedException, ApiException {
         GeoApiContext context = new GeoApiContext.Builder()
@@ -349,6 +367,7 @@ private void populateFarmerDetails() {
     private javax.swing.JButton btnFarmerList;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnOrder;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSplitPane jSplitPane2;
