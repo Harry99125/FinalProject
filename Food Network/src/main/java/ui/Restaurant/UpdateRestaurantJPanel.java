@@ -40,36 +40,36 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
         this.business = business;
         this. restaurant = restaurant;
         this.database = new Connection().connectToDatabase();
-        this.collection = this.database.getCollection("FarmerProduce");
+        this.collection = this.database.getCollection("RestaurantItem");
         this.produceName = produceName;
         if (produceName != null) {
             String farmerName =  restaurant.getRestaurantName();
             Document prod = crud.getFirstRecordByKey("produceName", produceName, this.database.getCollection("Produce"));
-            Document farm = crud.getFirstRecordByKey("farmerName", farmerName, this.database.getCollection("Farm"));
+            Document farm = crud.getFirstRecordByKey("restaurantName", farmerName, this.database.getCollection("Restaurant"));
             String prodId = prod.getObjectId("_id").toString();
             String farmId = farm.getObjectId("_id").toString();
-            Document farmerProduce = crud.getRecordByTwoKeys("produceId", prodId, "farmerId", farmId, collection);
+            Document farmerProduce = crud.getRecordByTwoKeys("produceId", prodId, "restaurantId", farmId, collection);
 
             txtProduceName.setText(prod.getString("produceName"));
-            txtProduceUsage.setText(prod.getString("produceUsage"));
-            txtProduceComposition.setText(prod.getString("produceComposition"));
-            txtProducePrice.setText(farmerProduce.getString("farmerPrice"));
-            txtProduceQuantity.setText(String.valueOf(farmerProduce.getInteger("stockQuantity")));
-            txtProduceDescription.setText(prod.getString("produceDescription"));
+        
+            txtProduceComposition.setText(prod.getString("produceCategory"));
+          
+            txtProduceQuantity.setText(String.valueOf(farmerProduce.getInteger("quantity")));
+        
 
 //          disable text fields
             txtProduceName.setEnabled(false);
-            txtProduceUsage.setEnabled(false);
+     
             txtProduceComposition.setEnabled(false);
-            txtProduceDescription.setEnabled(false);
+        
         } else {
             addProduce = true;
             txtProduceName.setText("");
-            txtProduceUsage.setText("");
+         
             txtProduceComposition.setText("");
-            txtProducePrice.setText("");
+      
             txtProduceQuantity.setText("");
-            txtProduceDescription.setText("");
+          
             btnupdate.setText("Add Produce");
         }
     }
@@ -86,15 +86,8 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         txtProduceName = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtProduceDescription = new javax.swing.JTextArea();
-        txtProduceUsage = new javax.swing.JTextField();
         txtProduceComposition = new javax.swing.JTextField();
-        txtProducePrice = new javax.swing.JTextField();
         txtProduceQuantity = new javax.swing.JTextField();
         btnupdate = new javax.swing.JButton();
         lblProduceDetails = new javax.swing.JLabel();
@@ -110,23 +103,7 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         jLabel4.setText("Quantity :");
 
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel7.setText("Crop Price :");
-
-        jLabel9.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel9.setText("Usage :");
-
-        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel10.setText("Description :");
-
         txtProduceName.setPreferredSize(new java.awt.Dimension(130, 30));
-
-        txtProduceDescription.setColumns(20);
-        txtProduceDescription.setRows(5);
-        txtProduceDescription.setPreferredSize(new java.awt.Dimension(130, 30));
-        jScrollPane1.setViewportView(txtProduceDescription);
-
-        txtProduceUsage.setPreferredSize(new java.awt.Dimension(130, 30));
 
         txtProduceComposition.setPreferredSize(new java.awt.Dimension(130, 30));
         txtProduceComposition.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +112,12 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtProducePrice.setPreferredSize(new java.awt.Dimension(130, 30));
-
         txtProduceQuantity.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtProduceQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProduceQuantityActionPerformed(evt);
+            }
+        });
 
         btnupdate.setBackground(new java.awt.Color(0, 153, 204));
         btnupdate.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
@@ -168,29 +148,22 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2))
                                 .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtProduceComposition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProduceUsage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtProduceName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7))
+                            .addComponent(btnupdate)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel4)
                                 .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtProducePrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtProduceQuantity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(txtProduceQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(103, 103, 103))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, txtProduceComposition, txtProduceName, txtProducePrice, txtProduceQuantity, txtProduceUsage});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtProduceComposition, txtProduceName, txtProduceQuantity});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,44 +174,29 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtProduceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtProduceUsage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtProduceComposition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProducePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProduceQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                 .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtProduceName, txtProduceUsage});
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         // TODO add your handling code here:
         // Validate inputs
         if (txtProduceName.getText().isEmpty()
-                || txtProduceUsage.getText().isEmpty()
+               
                 || txtProduceComposition.getText().isEmpty()
-                || txtProducePrice.getText().isEmpty()
+                 
                 || txtProduceQuantity.getText().isEmpty()
-                || txtProduceDescription.getText().isEmpty()) {
+              ) {
             JOptionPane.showMessageDialog(null, "Please fill all the details");
             return;
         }
@@ -258,23 +216,20 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
         }
 
         // Validate the price
-        String price = txtProducePrice.getText();
-        if (!price.matches("\\$\\d+\\.\\d{2}")) {
-            JOptionPane.showMessageDialog(null, "Please enter the price in the format such as $10.99 or $0.99.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+      
+     
 
         try {
             String farmerName = restaurant.getRestaurantName();
-            Document farm = crud.getFirstRecordByKey("farmName", farmerName, database.getCollection("Farm"));
+            Document farm = crud.getFirstRecordByKey("restaurantName", farmerName, database.getCollection("Restaurant"));
             String farmId = farm.getObjectId("_id").toString();
 
             if (addProduce) {
                 // Add new produce
                 Document produce = new Document("produceName", txtProduceName.getText().trim())
-                        .append("produceUsage", txtProduceUsage.getText().trim())
+                        
                         .append("produceCategory", txtProduceComposition.getText().trim())
-                        .append("produceDescription", txtProduceDescription.getText().trim());
+                        ;
                 database.getCollection("Produce").insertOne(produce);
 
                 // Get the produce ID
@@ -283,22 +238,21 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
                 String produceId = insertedProduce.getObjectId("_id").toString();
 
                 // Add to FarmerProduce
-                Document farmerProduce = new Document("farmerId", farmId)
+                Document farmerProduce = new Document("restaurantId", farmId)
                         .append("produceId", produceId)
-                        .append("farmerPrice", price)
-                        .append("stockQuantity", quantity);
+                       
+                        .append("quantity", quantity);
                 collection.insertOne(farmerProduce);
 
                 JOptionPane.showMessageDialog(null, "Produce added successfully!");
             } else {
                 // Update existing produce
-                Document produce = new Document("farmerPrice", price)
-                        .append("stockQuantity", quantity);
+                Document produce = new Document("quantity", quantity);
 
                 Document prod = crud.getFirstRecordByKey("produceName", produceName, database.getCollection("Produce"));
                 String prodId = prod.getObjectId("_id").toString();
 
-                collection.updateOne(new Document("produceId", prodId).append("farmerId", farmId), new Document("$set", produce));
+                collection.updateOne(new Document("produceId", prodId).append("restaurantId", farmId), new Document("$set", produce));
                 JOptionPane.showMessageDialog(null, "Produce updated successfully!");
             }
 
@@ -308,15 +262,23 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-
+        
     }//GEN-LAST:event_btnupdateActionPerformed
 
     private void txtProduceCompositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProduceCompositionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProduceCompositionActionPerformed
 
+    private void txtProduceQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProduceQuantityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProduceQuantityActionPerformed
+
     private void backAction() {
         cardSequencePanel.remove(this);
+         Component[] componentArray = cardSequencePanel.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+       RestaurantPListJPanel manageItemCatalogPanel = ( RestaurantPListJPanel) component;
+        manageItemCatalogPanel.populateTable();
         CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
         layout.previous(cardSequencePanel);
 
@@ -325,20 +287,13 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnupdate;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblProduceDetails;
     private javax.swing.JTextField txtProduceComposition;
-    private javax.swing.JTextArea txtProduceDescription;
     private javax.swing.JTextField txtProduceName;
-    private javax.swing.JTextField txtProducePrice;
     private javax.swing.JTextField txtProduceQuantity;
-    private javax.swing.JTextField txtProduceUsage;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -106,18 +106,7 @@ public class Restaurant {
         this.RestaurantAdminId = userLogin.getString("username");
     }
 
-    private RestaurantItem createProduce(String produceName, ObjectId produceID, String produceComposition,
-            String producePrice, int produceQuantity, String produceDescription, String produceCategory,
-            String produceExpiryDate, String produceHarvestDate, String produceUsage) {
-        RestaurantItem prod = produceDirectory.findProduce(produceName);
-        if (prod != null) {
-            System.out.println(prod + " produce already exists");
-        }
-        prod = produceDirectory.addProduce(produceName, produceID, produceComposition,
-                producePrice, produceQuantity, produceDescription, produceCategory,
-                produceExpiryDate, produceHarvestDate, produceUsage);
-        return prod;
-    }
+  
 
     private void updateQuantity(int quantity, RestaurantItem produce) {
 

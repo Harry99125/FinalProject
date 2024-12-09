@@ -35,24 +35,24 @@
                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="2" attributes="0">
-                          <Component id="lblAddMedicalEquipmentTitle" min="-2" pref="489" max="-2" attributes="0"/>
+                          <Component id="lblAddInventoryTitle" min="-2" pref="489" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblEquipmentType" max="32767" attributes="0"/>
-                              <Component id="lblEquipmentNameNew" max="32767" attributes="0"/>
-                              <Component id="lblEquipmentDescription" max="32767" attributes="0"/>
-                              <Component id="lblEquipmentPurpose" max="32767" attributes="0"/>
+                              <Component id="lblQuantity" max="32767" attributes="0"/>
+                              <Component id="lblProduct" max="32767" attributes="0"/>
+                              <Component id="lblItemDes" max="32767" attributes="0"/>
+                              <Component id="lblPrice" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="txtEquipmentType" linkSize="3" alignment="2" pref="161" max="32767" attributes="0"/>
-                              <Component id="txtEquipmentName" linkSize="3" alignment="2" pref="200" max="32767" attributes="0"/>
-                              <Component id="txtEquipmentDescription" linkSize="3" alignment="2" max="32767" attributes="0"/>
+                              <Component id="txtProductQuantity" linkSize="3" alignment="2" pref="161" max="32767" attributes="0"/>
+                              <Component id="txtProductName" linkSize="3" alignment="2" pref="200" max="32767" attributes="0"/>
+                              <Component id="txtProductDescription" linkSize="3" alignment="2" max="32767" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnAddNewEquipment" max="32767" attributes="0"/>
-                                  <Component id="txtEquipmentPurpose" linkSize="3" pref="200" max="32767" attributes="0"/>
+                                  <Component id="btnAddProduct" max="32767" attributes="0"/>
+                                  <Component id="txtProductPrice" linkSize="3" pref="200" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
@@ -72,40 +72,40 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Component id="btnBack" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  <Component id="lblAddMedicalEquipmentTitle" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblAddInventoryTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblEquipmentNameNew" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblProduct" linkSize="2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="lblEquipmentType" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblQuantity" linkSize="2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblEquipmentDescription" linkSize="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblItemDes" linkSize="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblEquipmentPurpose" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPrice" linkSize="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtEquipmentName" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtProductName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                                  <Component id="txtEquipmentDescription" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtProductDescription" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="txtEquipmentType" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtProductQuantity" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtEquipmentPurpose" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtProductPrice" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnAddNewEquipment" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnAddProduct" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
@@ -114,13 +114,13 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblAddMedicalEquipmentTitle">
+        <Component class="javax.swing.JLabel" name="lblAddInventoryTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="ADD ITEM DETAILS"/>
+            <Property name="text" type="java.lang.String" value="ADD PRODUCT DETAILS"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
@@ -128,67 +128,67 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtEquipmentType">
+        <Component class="javax.swing.JTextField" name="txtProductQuantity">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEquipmentTypeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductQuantityActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEquipmentNameNew">
+        <Component class="javax.swing.JLabel" name="lblProduct">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="        Item Name :"/>
+            <Property name="text" type="java.lang.String" value="Product"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEquipmentType">
+        <Component class="javax.swing.JLabel" name="lblQuantity">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="          Number :"/>
+            <Property name="text" type="java.lang.String" value="Quantity"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEquipmentDescription">
+        <Component class="javax.swing.JLabel" name="lblItemDes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Equipment Description :"/>
+            <Property name="text" type="java.lang.String" value="Item Description"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblEquipmentPurpose">
+        <Component class="javax.swing.JLabel" name="lblPrice">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Trebuchet MS" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="     Equipment Purpose :"/>
+            <Property name="text" type="java.lang.String" value="     Price :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtEquipmentDescription">
+        <Component class="javax.swing.JTextField" name="txtProductDescription">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEquipmentDescriptionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductDescriptionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtEquipmentName">
+        <Component class="javax.swing.JTextField" name="txtProductName">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEquipmentNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductNameActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAddNewEquipment">
+        <Component class="javax.swing.JButton" name="btnAddProduct">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="66" red="ff" type="rgb"/>
@@ -199,18 +199,18 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Add Equipment"/>
+            <Property name="text" type="java.lang.String" value="Add Product"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddNewEquipmentActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProductActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtEquipmentPurpose">
+        <Component class="javax.swing.JTextField" name="txtProductPrice">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEquipmentPurposeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductPriceActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBack">

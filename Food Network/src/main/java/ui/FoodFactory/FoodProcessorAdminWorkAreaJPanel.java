@@ -11,9 +11,10 @@ import model.Business.Business;
 
 import javax.swing.*;
 import java.awt.*;
+import model.FoodProcessItem.FoodFactory;
 import model.FoodProcessItem.FoodProcessItemDirectory;
+import org.bson.Document;
 import ui.MainLoginJPanel;
-
 
 public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -22,31 +23,30 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel cardSequencePanel;
     MongoDatabase database;
-  
-    Business business;
-    FoodProcessItemDirectory fpid;
-    MongoCollection<FoodProcessItemDirectory> EquipmentSupplierCollection;
 
-    public FoodProcessorAdminWorkAreaJPanel(JPanel cardSequencePanel, FoodProcessItemDirectory fpid, MongoDatabase database, Business business) {
+    Business business;
+    FoodFactory fpid;
+    MongoCollection<Document> EquipmentSupplierCollection;
+
+    public FoodProcessorAdminWorkAreaJPanel(JPanel cardSequencePanel, FoodFactory fpid, MongoDatabase database, Business business) {
         initComponents();
         this.cardSequencePanel = cardSequencePanel;
-        this.fpid=fpid;
+        this.fpid = fpid;
         this.database = database;
 
-        populateSupplierDetails();
+        populateFPFactoryDetails();
         txtEquipmentName1.setEnabled(false);
         txtEquipmentManagerName1.setEnabled(false);
-        btnSaveEquipment1.setEnabled(false);
         setFlag(false);
     }
 
-    private void populateSupplierDetails() {
-           //  fpid.readincomingdata(fpid, database);
-        txtEquipmentName1.setText(fpid.getSupplierName());
-        txtEquipmentLocation1.setText(fpid.getSupplierAddress());
-        txtEquipmentContact1.setText(fpid.getSupplierContact());
-        txtEquipmentManagerName2.setText(fpid.getSupplierEmail());
-        txtEquipmentManagerName1.setText(fpid.getFoodProcessManagerId());
+    private void populateFPFactoryDetails() {
+        // Fetch and populate Food Factory details
+        txtEquipmentName1.setText(fpid.getFactoryName()); // Factory Name
+        txtEquipmentLocation1.setText(fpid.getFactoryLocation()); // Factory Location
+        txtEquipmentContact1.setText(fpid.getFactoryContact()); // Factory Contact
+        txtEquipmentManagerName2.setText(fpid.getFactoryEmail()); // Factory Email
+        txtEquipmentManagerName1.setText(fpid.getFactoryAdminId()); // Factory Admin ID
     }
 
     /**
@@ -73,9 +73,7 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
         txtEquipmentName1 = new javax.swing.JTextField();
         txtEquipmentManagerName1 = new javax.swing.JTextField();
         txtEquipmentLocation1 = new javax.swing.JTextField();
-        btnSaveEquipment1 = new javax.swing.JButton();
         lblMedicalEquipmentSupplierDetails = new javax.swing.JLabel();
-        btnUpdateEquipment1 = new javax.swing.JButton();
         lblEquipmentName1 = new javax.swing.JLabel();
         lblManagerName2 = new javax.swing.JLabel();
         txtEquipmentManagerName2 = new javax.swing.JTextField();
@@ -197,30 +195,10 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSaveEquipment1.setBackground(new java.awt.Color(255, 102, 0));
-        btnSaveEquipment1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        btnSaveEquipment1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSaveEquipment1.setText("Save");
-        btnSaveEquipment1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveEquipment1ActionPerformed(evt);
-            }
-        });
-
         lblMedicalEquipmentSupplierDetails.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblMedicalEquipmentSupplierDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMedicalEquipmentSupplierDetails.setText("Food Processor Details");
         lblMedicalEquipmentSupplierDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        btnUpdateEquipment1.setBackground(new java.awt.Color(0, 0, 0));
-        btnUpdateEquipment1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        btnUpdateEquipment1.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdateEquipment1.setText("Update Details");
-        btnUpdateEquipment1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateEquipment1ActionPerformed(evt);
-            }
-        });
 
         lblEquipmentName1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblEquipmentName1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -257,14 +235,9 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(txtEquipmentName1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEquipmentLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEquipmentContact1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnUpdateEquipment1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSaveEquipment1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEquipmentManagerName2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEquipmentManagerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtEquipmentManagerName2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtEquipmentManagerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(108, 108, 108))
         );
 
@@ -281,28 +254,23 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEquipmentName1)
                     .addComponent(txtEquipmentName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblEquipmentLocation1)
-                        .addComponent(txtEquipmentLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEquipmentContact1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEquipmentContact1))))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEquipmentLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEquipmentLocation1))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEquipmentContact1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEquipmentContact1))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblManagerName1)
                     .addComponent(txtEquipmentManagerName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEquipmentManagerName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblManagerName2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSaveEquipment1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdateEquipment1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(76, 76, 76))
+                .addGap(143, 143, 143))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtEquipmentContact1, txtEquipmentLocation1, txtEquipmentManagerName1, txtEquipmentManagerName2, txtEquipmentName1});
@@ -347,31 +315,13 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
          // TODO add your handling code here:
      }//GEN-LAST:event_txtEquipmentLocation1ActionPerformed
 
-     private void btnSaveEquipment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveEquipment1ActionPerformed
-         // TODO add your handling code here:
-         fpid.setSupplierAddress(txtEquipmentLocation1.getText());
-        fpid.setSupplierContact(txtEquipmentContact1.getText());
-         fpid.setSupplierEmail(txtEquipmentManagerName2.getText());
-        
-        fpid.updateSupplierDetails(fpid, database);
-         JOptionPane.showMessageDialog(null, "Supplier Details Updated Successfully");
-         setFlag(false);
-     }//GEN-LAST:event_btnSaveEquipment1ActionPerformed
-
-     private void btnUpdateEquipment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEquipment1ActionPerformed
-         // TODO add your handling code here:
-         setFlag(true);
-         btnSaveEquipment1.setEnabled(true);
-
-     }//GEN-LAST:event_btnUpdateEquipment1ActionPerformed
-
      private void txtEquipmentManagerName2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipmentManagerName2ActionPerformed
          // TODO add your handling code here:
      }//GEN-LAST:event_txtEquipmentManagerName2ActionPerformed
 
     private void btnEquipmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquipmentsActionPerformed
         // TODO add your handling code here:
-        FoodItemsJPanel equipmentsJPanel = new FoodItemsJPanel(FoodWorkArea,fpid, database, business);
+        FoodItemsJPanel equipmentsJPanel = new FoodItemsJPanel(FoodWorkArea, fpid, database, business);
         FoodWorkArea.add("EquipmentsJPanel", equipmentsJPanel);
         CardLayout layout = (CardLayout) FoodWorkArea.getLayout();
         layout.next(FoodWorkArea);
@@ -393,12 +343,12 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(cardSequencePanel);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-     private void setFlag(boolean b) {
-         // TODO add your handling code here:
-         txtEquipmentLocation1.setEnabled(b);
-         txtEquipmentContact1.setEnabled(b);
-         txtEquipmentManagerName2.setEnabled(b);
-     }
+    private void setFlag(boolean b) {
+        // TODO add your handling code here:
+        txtEquipmentLocation1.setEnabled(b);
+        txtEquipmentContact1.setEnabled(b);
+        txtEquipmentManagerName2.setEnabled(b);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -408,8 +358,6 @@ public class FoodProcessorAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnEquipments;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnSaveEquipment1;
-    private javax.swing.JButton btnUpdateEquipment1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblEquipmentContact1;

@@ -110,7 +110,7 @@ private void populateFarmerDetails() {
 
         FarmerCardLayout.setLayout(new java.awt.CardLayout());
 
-        jPanel4.setBackground(new java.awt.Color(206, 238, 251));
+        jPanel4.setBackground(new java.awt.Color(102, 255, 51));
 
         lblPharmacyName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblPharmacyName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -147,7 +147,7 @@ private void populateFarmerDetails() {
 
         lblFarmerDetails.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblFarmerDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFarmerDetails.setText("FARMER DETAILS");
+        lblFarmerDetails.setText("Restaruant DETAILS");
         lblFarmerDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtFarmerAddress.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
