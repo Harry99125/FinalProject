@@ -68,8 +68,8 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
         this.database = new Connection().connectToDatabase();
         this.collection = this.database.getCollection("WarehouseProduce");
         this.produceCollection = this.database.getCollection("Produce");
-        this.FarmCollection=this.database.getCollection("FarmProduce");
-        this.FactoryCollection=this.database.getCollection("FoodProcessorProduce");
+        this.FarmCollection=this.database.getCollection("FarmerProduce");
+        this.FactoryCollection=this.database.getCollection("FactoryProduct");
         populateTable();
     }
 
@@ -79,10 +79,11 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
        
         String farmerId = warehouse.getWarehouseId().toString();
         FindIterable<Document> farmerProduces = crud.getRecordsByKey("warehouseId", farmerId, collection);
+  
         FindIterable<Document> docList=FarmCollection.find();
          try (MongoCursor<Document> cursor = docList.iterator()) {
             while (cursor.hasNext()) {
-                
+                System.out.println("yes");
                 Document farmerProduceDoc = cursor.next();
                 ObjectId produceId = new ObjectId(farmerProduceDoc.getString("produceId"));
 
@@ -93,7 +94,8 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
                     Object[] row = new Object[]{
                         produceDoc.getString("produceName"),
                         produceDoc.getString("produceCategory"),
-                        farmerProduceDoc.getInteger("quantity")
+                        farmerProduceDoc.getInteger("stockQuantity"),
+                        farmerProduceDoc.getString("farmerId")
                     };
                     model.addRow(row); // Add the row to the table model
                 } else {
@@ -101,6 +103,30 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
                 }
             }
             }
+          FindIterable<Document> docList1=FactoryCollection.find();
+         try (MongoCursor<Document> cursor = docList1.iterator()) {
+            while (cursor.hasNext()) {
+                System.out.println("yes");
+                Document farmerProduceDoc = cursor.next();
+                ObjectId produceId = new ObjectId(farmerProduceDoc.getString("productId"));
+
+                // Fetch produce details
+                Document produceDoc = crud.getFirstRecordByKey("_id", produceId, produceCollection);
+
+                if (produceDoc != null) {
+                    Object[] row = new Object[]{
+                        produceDoc.getString("produceName"),
+                        produceDoc.getString("produceCategory"),
+                        farmerProduceDoc.getInteger("stockQuantity"),
+                        farmerProduceDoc.getString("farmerId")
+                    };
+                    model.addRow(row); // Add the row to the table model
+                } else {
+                    System.err.println("No produce found for ID: " + produceId);
+                }
+            }
+            }
+         
         try (MongoCursor<Document> cursor = farmerProduces.iterator()) {
             while (cursor.hasNext()) {
                 Document farmerProduceDoc = cursor.next();
@@ -138,21 +164,20 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProduceList = new javax.swing.JTable();
         btnGetReport = new javax.swing.JButton();
-        btnGetDetails = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(206, 238, 251));
+        setBackground(new java.awt.Color(255, 204, 204));
 
         tableProduceList.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         tableProduceList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Name", "Category", "Quantity"
+                "Name", "Category", "Quantity", "userId"
             }
         ));
         jScrollPane1.setViewportView(tableProduceList);
@@ -167,26 +192,6 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnGetDetails.setBackground(new java.awt.Color(0, 153, 51));
-        btnGetDetails.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        btnGetDetails.setForeground(new java.awt.Color(255, 255, 255));
-        btnGetDetails.setText("Get Details");
-        btnGetDetails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGetDetailsActionPerformed(evt);
-            }
-        });
-
-        btnAdd.setBackground(new java.awt.Color(0, 153, 204));
-        btnAdd.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,67 +199,20 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGetDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGetReport, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGetReport, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnGetDetails, btnGetReport});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGetReport)
-                    .addComponent(btnGetDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addComponent(btnGetReport)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAdd, btnGetDetails, btnGetReport});
-
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        UpdateWarehouseJPanel updateProduceJPanel = new UpdateWarehouseJPanel(cardSequencePanel, business, warehouse, null, database);
-        cardSequencePanel.add("UpdateProduceJPanel", updateProduceJPanel);
-        CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
-        layout.next(cardSequencePanel);
-
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnGetDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDetailsActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = tableProduceList.getSelectedRow();
-        if (selectedRow >= 0) {
-            // Retrieve the selected produce's name from the table
-            String produceName = tableProduceList.getValueAt(selectedRow, 0).toString();
-
-            // Log the selected produce name (optional)
-            System.out.println("Selected Produce Name: " + produceName);
-
-            // Pass the selected produce's name to the UpdateWarehouseJPanel
-            UpdateWarehouseJPanel updateProduceJPanel = new UpdateWarehouseJPanel(cardSequencePanel, business, warehouse, produceName, database);
-
-            // Add the panel to the card layout and switch to it
-            cardSequencePanel.add("UpdateProduceJPanel", updateProduceJPanel);
-            CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
-            layout.next(cardSequencePanel);
-        } else {
-            // Show an error message if no row is selected
-            JOptionPane.showMessageDialog(this, "Please select a row to view details.", "No Selection", JOptionPane.WARNING_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnGetDetailsActionPerformed
 
     private void btnGetReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetReportActionPerformed
         // TODO add your handling code here:
@@ -268,8 +226,6 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnGetDetails;
     private javax.swing.JButton btnGetReport;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableProduceList;

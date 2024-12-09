@@ -112,7 +112,7 @@ private void populateFarmerDetails() {
 
         FarmerCardLayout.setLayout(new java.awt.CardLayout());
 
-        jPanel4.setBackground(new java.awt.Color(206, 238, 251));
+        jPanel4.setBackground(new java.awt.Color(255, 153, 153));
 
         lblPharmacyName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblPharmacyName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -313,7 +313,7 @@ private void populateFarmerDetails() {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        MainLoginJPanel mainLoginJPanel = new MainLoginJPanel(CardSequencePanel, business, "Pharmacy", new Connection().connectToDatabase());
+        MainLoginJPanel mainLoginJPanel = new MainLoginJPanel(CardSequencePanel, business, "Admin", new Connection().connectToDatabase());
         CardSequencePanel.add("MainLoginJPanel", mainLoginJPanel);
         CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
         layout.next(CardSequencePanel);
