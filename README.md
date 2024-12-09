@@ -32,12 +32,8 @@
    - Vendor relationships
    - Customer service optimization
 
-7. **Livestock**
-   - Animal health and breeding
-   - Feed and nutrition planning
-   - Tracking productivity metrics
 
-8. **Warehouse Operator**
+7. **Warehouse Operator**
    - Inventory organization and storage
    - Maintenance of temperature-controlled facilities
    - Monitoring stock and expiry dates
