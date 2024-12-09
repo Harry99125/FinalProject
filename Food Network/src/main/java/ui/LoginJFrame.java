@@ -227,7 +227,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLivestockLoginActionPerformed
 
     private void btnWarehouseOperatorLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWarehouseOperatorLogin1ActionPerformed
-        // TODO add your handling code here:
+         goToLoginPage("Warehouse");
     }//GEN-LAST:event_btnWarehouseOperatorLogin1ActionPerformed
 
     /**
