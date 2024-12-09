@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.Restaurant;
+package ui.Warehouse;
 
+import ui.Restaurant.*;
 import ui.Farmer.*;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlaceAutocompleteRequest;
@@ -28,28 +29,29 @@ import java.util.logging.Logger;
 import model.Business.Business;
 import model.Farmer.Farmer;
 import model.Restaurant.Restaurant;
+import model.Warehouse.Warehouse;
 import org.bson.Document;
 import ui.LoginJFrame;
 import ui.MainLoginJPanel;
 
 
-public class RestaurantAdminWorkAreaJPanel extends javax.swing.JPanel {
+public class WarehouseAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form RestaurantAdminWorkAreaJPanel
+     * Creates new form WarehouseAdminWorkAreaJPanel
      */
     JPanel CardSequencePanel;
     Business business;
-    Restaurant restaurant;
+    Warehouse warehouse;
     MongoDatabase database;
     private boolean isUpdating;
   
 
 
-   public RestaurantAdminWorkAreaJPanel(JPanel cardSequencePanel,Restaurant restaurant, MongoDatabase database, Business business) {
+   public WarehouseAdminWorkAreaJPanel(JPanel cardSequencePanel,Warehouse warehouse, MongoDatabase database, Business business) {
     initComponents();
     this.CardSequencePanel = cardSequencePanel;
-    this.restaurant = restaurant;
+    this.warehouse = warehouse;
     this.database = database;
     this.business = business;
     populateFarmerDetails();
@@ -69,11 +71,11 @@ private void setFlag(boolean b) {
 }
 
 private void populateFarmerDetails() {
-    txtFarmerName.setText(restaurant.getRestaurantName());
-    txtFarmerAddress.setText(restaurant.getRestaurantlocation());
-    txtFarmerContact.setText(restaurant.getRestaurantcontact());
-    txtFarmerEmail.setText(restaurant.getRestaurantemail());
-    txtFarmerManagerName.setText(restaurant.getRestaurantManageName());
+    txtFarmerName.setText(warehouse.getWarehouseName());
+    txtFarmerAddress.setText(warehouse.getWarehouselocation());
+    txtFarmerContact.setText(warehouse.getWarehousecontact());
+    txtFarmerEmail.setText(warehouse.getWarehouseemail());
+    txtFarmerManagerName.setText(warehouse.getWarehouseManageName());
 }
 
 
@@ -110,7 +112,7 @@ private void populateFarmerDetails() {
 
         FarmerCardLayout.setLayout(new java.awt.CardLayout());
 
-        jPanel4.setBackground(new java.awt.Color(102, 255, 51));
+        jPanel4.setBackground(new java.awt.Color(206, 238, 251));
 
         lblPharmacyName.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblPharmacyName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -147,7 +149,7 @@ private void populateFarmerDetails() {
 
         lblFarmerDetails.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblFarmerDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFarmerDetails.setText("Restaruant DETAILS");
+        lblFarmerDetails.setText("Warehouse DETAILS");
         lblFarmerDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtFarmerAddress.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -303,7 +305,7 @@ private void populateFarmerDetails() {
 
     private void btnFarmerListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFarmerListActionPerformed
         // TODO add your handling code here:
-        RestaurantPListJPanel produceListJPanel = new RestaurantPListJPanel(FarmerCardLayout, business, restaurant, database);
+        WarehousePListJPanel produceListJPanel = new WarehousePListJPanel(FarmerCardLayout, business, warehouse, database);
         FarmerCardLayout.add("ProduceListJPanel", produceListJPanel);
         CardLayout layout = (CardLayout) FarmerCardLayout.getLayout();
         layout.next(FarmerCardLayout);
@@ -319,8 +321,8 @@ private void populateFarmerDetails() {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
-        RestaurantAdminWorkAreaJPanel farmerAdminWorkAreaJPanel = new RestaurantAdminWorkAreaJPanel(CardSequencePanel, restaurant, database,business);
-        CardSequencePanel.add("PharmacyAdminWorkAreaJPanel", farmerAdminWorkAreaJPanel);
+        WarehouseAdminWorkAreaJPanel farmerAdminWorkAreaJPanel = new WarehouseAdminWorkAreaJPanel(CardSequencePanel, warehouse, database,business);
+        CardSequencePanel.add("AdminWorkAreaJPanel", farmerAdminWorkAreaJPanel);
         CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
         layout.next(CardSequencePanel);
     }//GEN-LAST:event_btnHomeActionPerformed

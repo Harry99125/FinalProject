@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.Restaurant;
+package ui.Warehouse;
 
+import ui.Restaurant.*;
 import ui.Farmer.*;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -40,40 +41,66 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.Restaurant.Restaurant;
+import model.Warehouse.Warehouse;
 import service.FileSaver;
 
 
-public class RestaurantPListJPanel extends javax.swing.JPanel {
+public class WarehousePListJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form RestaurantPListJPanel
+     * Creates new form WarehousePListJPanel
      */
     JPanel cardSequencePanel;
     Business business;
-    Restaurant restaurant;
+    Warehouse warehouse;
     MongoDatabase database;
     MongoCollection<Document> collection;
     MongoCollection<Document> produceCollection;
+     MongoCollection<Document> FarmCollection;
+      MongoCollection<Document> FactoryCollection;
     CRUDOperations crud = new CRUDOperations();
 
-    public RestaurantPListJPanel(JPanel cardSequencePanel, Business business, Restaurant restaurant, MongoDatabase prevdatabase) {
+    public WarehousePListJPanel(JPanel cardSequencePanel, Business business, Warehouse warehouse, MongoDatabase prevdatabase) {
         initComponents();
         this.cardSequencePanel = cardSequencePanel;
         this.business = business;
-        this.restaurant = restaurant;
+        this.warehouse = warehouse;
         this.database = new Connection().connectToDatabase();
-        this.collection = this.database.getCollection("RestaurantItem");
+        this.collection = this.database.getCollection("WarehouseProduce");
         this.produceCollection = this.database.getCollection("Produce");
+        this.FarmCollection=this.database.getCollection("FarmProduce");
+        this.FactoryCollection=this.database.getCollection("FoodProcessorProduce");
         populateTable();
     }
 
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tableProduceList.getModel();
         model.setRowCount(0); // Clear existing rows in the table
+       
+        String farmerId = warehouse.getWarehouseId().toString();
+        FindIterable<Document> farmerProduces = crud.getRecordsByKey("warehouseId", farmerId, collection);
+        FindIterable<Document> docList=FarmCollection.find();
+         try (MongoCursor<Document> cursor = docList.iterator()) {
+            while (cursor.hasNext()) {
+                
+                Document farmerProduceDoc = cursor.next();
+                ObjectId produceId = new ObjectId(farmerProduceDoc.getString("produceId"));
 
-        String farmerId = restaurant.getRestaurantId().toString();
-        FindIterable<Document> farmerProduces = crud.getRecordsByKey("restaurantId", farmerId, collection);
+                // Fetch produce details
+                Document produceDoc = crud.getFirstRecordByKey("_id", produceId, produceCollection);
 
+                if (produceDoc != null) {
+                    Object[] row = new Object[]{
+                        produceDoc.getString("produceName"),
+                        produceDoc.getString("produceCategory"),
+                        farmerProduceDoc.getInteger("quantity")
+                    };
+                    model.addRow(row); // Add the row to the table model
+                } else {
+                    System.err.println("No produce found for ID: " + produceId);
+                }
+            }
+            }
         try (MongoCursor<Document> cursor = farmerProduces.iterator()) {
             while (cursor.hasNext()) {
                 Document farmerProduceDoc = cursor.next();
@@ -198,7 +225,7 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        UpdateRestaurantJPanel updateProduceJPanel = new UpdateRestaurantJPanel(cardSequencePanel, business, restaurant, null, database);
+        UpdateWarehouseJPanel updateProduceJPanel = new UpdateWarehouseJPanel(cardSequencePanel, business, warehouse, null, database);
         cardSequencePanel.add("UpdateProduceJPanel", updateProduceJPanel);
         CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
         layout.next(cardSequencePanel);
@@ -215,8 +242,8 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
             // Log the selected produce name (optional)
             System.out.println("Selected Produce Name: " + produceName);
 
-            // Pass the selected produce's name to the UpdateRestaurantJPanel
-            UpdateRestaurantJPanel updateProduceJPanel = new UpdateRestaurantJPanel(cardSequencePanel, business, restaurant, produceName, database);
+            // Pass the selected produce's name to the UpdateWarehouseJPanel
+            UpdateWarehouseJPanel updateProduceJPanel = new UpdateWarehouseJPanel(cardSequencePanel, business, warehouse, produceName, database);
 
             // Add the panel to the card layout and switch to it
             cardSequencePanel.add("UpdateProduceJPanel", updateProduceJPanel);
@@ -235,7 +262,7 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
         columnNames.add("Name");
         columnNames.add("Category");
         columnNames.add("Quantity");
-        FileSaver fileSaver = new FileSaver(tableProduceList, restaurant.getRestaurantName(), columnNames);
+        FileSaver fileSaver = new FileSaver(tableProduceList, warehouse.getWarehouseName(), columnNames);
         fileSaver.saveFile();
     }//GEN-LAST:event_btnGetReportActionPerformed
 
@@ -251,7 +278,7 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
     private void populateTableByCategory(String category) {
         DefaultTableModel model = (DefaultTableModel) tableProduceList.getModel();
         model.setRowCount(0);  // Clear the table
-        String farmerId = restaurant.getRestaurantId().toString();
+        String farmerId = warehouse.getWarehouseId().toString();
         MongoCollection<Document> produceCollection = database.getCollection("Produce");
         FindIterable<Document> iterable;
 
@@ -273,7 +300,7 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
                 ObjectId prodId = doc.getObjectId("_id");
                 Document stockDoc;
                 try {
-                    stockDoc = crud.getRecordByTwoKeys("produceId", prodId.toString(), "restaurantId", farmerId, database.getCollection("RestaurantItem"));
+                    stockDoc = crud.getRecordByTwoKeys("produceId", prodId.toString(), "warehouseId", farmerId, database.getCollection("WarehouseProduce"));
                     if (stockDoc == null || stockDoc.getInteger("quantity") == null) {
                         JOptionPane.showMessageDialog(null, "No stock data available for the selected category.", "Data Error", JOptionPane.ERROR_MESSAGE);
                         return; // Exit the method or skip adding this row

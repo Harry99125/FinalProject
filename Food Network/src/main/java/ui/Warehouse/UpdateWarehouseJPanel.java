@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.Restaurant;
+package ui.Warehouse;
 
+import ui.Restaurant.*;
 import ui.Farmer.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -17,38 +18,39 @@ import model.Farmer.Produce;
 
 import java.awt.*;
 import model.Restaurant.Restaurant;
+import model.Warehouse.Warehouse;
 import org.bson.Document;
 
 
-public class UpdateRestaurantJPanel extends javax.swing.JPanel {
+public class UpdateWarehouseJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form AddProduceJPanel
      */
     JPanel cardSequencePanel;
     Business business;
-    Restaurant restaurant;
+    Warehouse warehouse;
     MongoDatabase database;
     CRUDOperations crud = new CRUDOperations();
     MongoCollection<Document> collection;
     String produceName;
     Boolean addProduce = false;
 
-    public UpdateRestaurantJPanel(JPanel cardSequencePanel, Business business, Restaurant restaurant, String produceName, MongoDatabase database) {
+    public UpdateWarehouseJPanel(JPanel cardSequencePanel, Business business, Warehouse warehouse, String produceName, MongoDatabase database) {
         initComponents();
         this.cardSequencePanel = cardSequencePanel;
         this.business = business;
-        this. restaurant = restaurant;
+        this. warehouse = warehouse;
         this.database = new Connection().connectToDatabase();
-        this.collection = this.database.getCollection("RestaurantItem");
+        this.collection = this.database.getCollection("WarehouseProduce");
         this.produceName = produceName;
         if (produceName != null) {
-            String farmerName =  restaurant.getRestaurantName();
+            String farmerName =  warehouse.getWarehouseName();
             Document prod = crud.getFirstRecordByKey("produceName", produceName, this.database.getCollection("Produce"));
-            Document farm = crud.getFirstRecordByKey("restaurantName", farmerName, this.database.getCollection("Restaurant"));
+            Document farm = crud.getFirstRecordByKey("warehouseName", farmerName, this.database.getCollection("Warehouse"));
             String prodId = prod.getObjectId("_id").toString();
             String farmId = farm.getObjectId("_id").toString();
-            Document farmerProduce = crud.getRecordByTwoKeys("produceId", prodId, "restaurantId", farmId, collection);
+            Document farmerProduce = crud.getRecordByTwoKeys("produceId", prodId, "warehouseId", farmId, collection);
 
             txtProduceName.setText(prod.getString("produceName"));
         
@@ -220,8 +222,8 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
      
 
         try {
-            String farmerName = restaurant.getRestaurantName();
-            Document farm = crud.getFirstRecordByKey("restaurantName", farmerName, database.getCollection("Restaurant"));
+            String farmerName = warehouse.getWarehouseName();
+            Document farm = crud.getFirstRecordByKey("warehouseName", farmerName, database.getCollection("Warehouse"));
             String farmId = farm.getObjectId("_id").toString();
 
             if (addProduce) {
@@ -252,7 +254,7 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
                 Document prod = crud.getFirstRecordByKey("produceName", produceName, database.getCollection("Produce"));
                 String prodId = prod.getObjectId("_id").toString();
 
-                collection.updateOne(new Document("produceId", prodId).append("restaurantId", farmId), new Document("$set", produce));
+                collection.updateOne(new Document("produceId", prodId).append("warehouseId", farmId), new Document("$set", produce));
                 JOptionPane.showMessageDialog(null, "Produce updated successfully!");
             }
 
@@ -277,7 +279,7 @@ public class UpdateRestaurantJPanel extends javax.swing.JPanel {
         cardSequencePanel.remove(this);
          Component[] componentArray = cardSequencePanel.getComponents();
         Component component = componentArray[componentArray.length - 1];
-       RestaurantPListJPanel manageItemCatalogPanel = ( RestaurantPListJPanel) component;
+       WarehousePListJPanel manageItemCatalogPanel = ( WarehousePListJPanel) component;
         manageItemCatalogPanel.populateTable();
         CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
         layout.previous(cardSequencePanel);
