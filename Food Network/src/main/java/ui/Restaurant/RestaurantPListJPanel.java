@@ -62,17 +62,17 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
         this.business = business;
         this.restaurant = restaurant;
         this.database = new Connection().connectToDatabase();
-        this.collection = this.database.getCollection("FarmerProduce");
+        this.collection = this.database.getCollection("RestaurantItem");
         this.produceCollection = this.database.getCollection("Produce");
         populateTable();
     }
 
-    private void populateTable() {
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tableProduceList.getModel();
         model.setRowCount(0); // Clear existing rows in the table
 
         String farmerId = restaurant.getRestaurantId().toString();
-        FindIterable<Document> farmerProduces = crud.getRecordsByKey("farmerId", farmerId, collection);
+        FindIterable<Document> farmerProduces = crud.getRecordsByKey("restaurantId", farmerId, collection);
 
         try (MongoCursor<Document> cursor = farmerProduces.iterator()) {
             while (cursor.hasNext()) {
@@ -86,7 +86,7 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
                     Object[] row = new Object[]{
                         produceDoc.getString("produceName"),
                         produceDoc.getString("produceCategory"),
-                        farmerProduceDoc.getInteger("stockQuantity")
+                        farmerProduceDoc.getInteger("quantity")
                     };
                     model.addRow(row); // Add the row to the table model
                 } else {
@@ -273,8 +273,8 @@ public class RestaurantPListJPanel extends javax.swing.JPanel {
                 ObjectId prodId = doc.getObjectId("_id");
                 Document stockDoc;
                 try {
-                    stockDoc = crud.getRecordByTwoKeys("produceId", prodId.toString(), "farmerId", farmerId, database.getCollection("FarmerProduce"));
-                    if (stockDoc == null || stockDoc.getInteger("stockQuantity") == null) {
+                    stockDoc = crud.getRecordByTwoKeys("produceId", prodId.toString(), "restaurantId", farmerId, database.getCollection("RestaurantItem"));
+                    if (stockDoc == null || stockDoc.getInteger("quantity") == null) {
                         JOptionPane.showMessageDialog(null, "No stock data available for the selected category.", "Data Error", JOptionPane.ERROR_MESSAGE);
                         return; // Exit the method or skip adding this row
                     }

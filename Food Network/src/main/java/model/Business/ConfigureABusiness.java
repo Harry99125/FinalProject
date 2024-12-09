@@ -1,10 +1,11 @@
 package model.Business;
 
 import database.DataBaseConnection;
-import model.Hospital.Hospital;
-import model.Personnel.Researcher;
-import model.Pharmacy.Pharmacy;
-import model.TrainingCenter.TrainingCenter;
+
+import model.FoodProcessItem.FoodProcessItemDirectory;
+
+
+
 
 public class ConfigureABusiness {
     public static Business initialize() {
