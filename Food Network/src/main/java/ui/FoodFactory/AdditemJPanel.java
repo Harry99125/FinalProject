@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Business.Business;
 import model.FoodProcessItem.FoodFactory;
-import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import org.bson.Document;
 
@@ -22,9 +21,7 @@ public class AdditemJPanel extends javax.swing.JPanel {
      */
     JPanel cardSequencePanel;
     MongoDatabase database;
-    FoodProcessItemDirectory medicalEquipmentSupplier;
     Business business;
-    MongoCollection<FoodProcessItemDirectory> EquipmentSupplierCollection;
     CRUDOperations crud = new CRUDOperations();
     FoodFactory foodFactory;
 

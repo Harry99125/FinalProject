@@ -14,35 +14,24 @@ import javax.swing.*;
 import java.awt.*;
 import model.Farmer.Farmer;
 import model.FoodProcessItem.FoodFactory;
-import model.FoodProcessItem.FoodProcessItemDirectory;
-
-
 
 
 
 
 import model.Restaurant.Restaurant;
-
+import model.Retailer.Retailer;
 import model.Warehouse.Warehouse;
-
-import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.organization;
 
 import org.bson.Document;
 import ui.Admin.BusinessJPanel;
 
-
-
-
-
-
 import ui.Farmer.FarmerAdminWorkAreaJPanel;
 import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
-
 import ui.Restaurant.RestaurantAdminWorkAreaJPanel;
-
-
+import ui.Retailer.RetailerAdminWorkAreaJPanel;
 import ui.Warehouse.WarehouseAdminWorkAreaJPanel;
+
 
 
 public class MainLoginJPanel extends javax.swing.JPanel {
@@ -242,7 +231,6 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 return;
             }
             JOptionPane.showMessageDialog(null, "Login Successful");
-           
             if (role.equals("FoodProcessor")) {
                 FoodFactory foodProcessItemDirectory = new FoodFactory(organization, userLogin);
                 FoodProcessorAdminWorkAreaJPanel foodProcessorAdminWorkAreaJPanel = new FoodProcessorAdminWorkAreaJPanel(CardSequencePanel, foodProcessItemDirectory, database, business);
@@ -253,7 +241,7 @@ public class MainLoginJPanel extends javax.swing.JPanel {
             if (role.equals("Farm")) {
                 Farmer farmer = new Farmer(organization, userLogin);
                 FarmerAdminWorkAreaJPanel farmerAdminWorkAreaJPanel = new FarmerAdminWorkAreaJPanel(CardSequencePanel, farmer, database, business);
-                CardSequencePanel.add("rAdminWorkAreaJPanel", farmerAdminWorkAreaJPanel);
+                CardSequencePanel.add("TrainingCenterAdminWorkAreaJPanel", farmerAdminWorkAreaJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
             }
@@ -265,10 +253,18 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
             }
-            if (role.equals("Warehouse")) {
-                Warehouse warehouse = new Warehouse(organization, userLogin);
-                WarehouseAdminWorkAreaJPanel MainJPanel = new  WarehouseAdminWorkAreaJPanel(CardSequencePanel,warehouse, database, business);
-                CardSequencePanel.add("DMainJPanel", MainJPanel);
+            if (role.equals("Retailer")) {
+                Retailer retailer = new Retailer(organization, userLogin);
+                RetailerAdminWorkAreaJPanel doctorMainJPanel = new RetailerAdminWorkAreaJPanel(CardSequencePanel, retailer, database, business);
+                CardSequencePanel.add("DoctorMainJPanel", doctorMainJPanel);
+                CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+                layout.next(CardSequencePanel);
+
+            }
+             if (role.equals("Warehouse")) {
+                Warehouse retailer = new Warehouse(organization, userLogin);
+                WarehouseAdminWorkAreaJPanel warehouseAdminWorkAreaJPanel = new WarehouseAdminWorkAreaJPanel(CardSequencePanel, retailer, database, business);
+                CardSequencePanel.add("DoctorMainJPanel", warehouseAdminWorkAreaJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
 

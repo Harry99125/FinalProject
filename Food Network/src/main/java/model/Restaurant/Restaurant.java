@@ -1,12 +1,9 @@
 package model.Restaurant;
 
-import model.Restaurant.Restaurant.*;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import java.util.ArrayList;
-import service.FarmerService;
 import service.RestaurantService;
 
 public class Restaurant {
@@ -136,8 +133,8 @@ public class Restaurant {
         return produceDirectory.getCategoryList();
     }
 
-    public boolean isMatch(String farmerName) {
-        return this.farmName.equalsIgnoreCase(farmerName);
+    public boolean isMatch(String restaurantName) {
+        return this.RestaurantName.equalsIgnoreCase(restaurantName);
     }
 
     public boolean authenticateAdmin(String adminUserName) {

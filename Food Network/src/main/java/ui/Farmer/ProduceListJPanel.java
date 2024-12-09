@@ -4,7 +4,6 @@
  */
 package ui.Farmer;
 
-
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
