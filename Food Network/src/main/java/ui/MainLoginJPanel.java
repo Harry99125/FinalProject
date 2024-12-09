@@ -22,6 +22,7 @@ import model.Hospital.Hospital;
 
 import model.Personnel.Doctor;
 import model.Pharmacy.Pharmacy;
+import model.Restaurant.Restaurant;
 import model.TrainingCenter.TrainingCenter;
 
 import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.organization;
@@ -41,6 +42,7 @@ import ui.Farmer.FarmerAdminWorkAreaJPanel;
 import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
 import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
+import ui.Restaurant.RestaurantAdminWorkAreaJPanel;
 
 import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
 
@@ -80,7 +82,9 @@ public class MainLoginJPanel extends javax.swing.JPanel {
         String organizationName = role.toLowerCase() + "Name";
         System.out.println("dfcgh " + organizationName);
         FindIterable<Document> organization = crud.getRecordsByKey("organizationType", role, organizationCollection);
+       
         for (Document doc : organization) {
+             System.out.println(doc.getString(organizationName));
             cmbOrgnization.addItem(doc.getString(organizationName));
         }
     }
@@ -233,8 +237,10 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 return;
             }
             Document organization = crud.getRecordByTwoKeys(organizationName, cmbOrgnization.getSelectedItem().toString(), adminId, String.valueOf(user.getObjectId("_id")), organizationCollection);
+               System.out.println(String.valueOf(user.getObjectId("_id")));
             if (organization == null) {
-                JOptionPane.showMessageDialog(null, "FoodProcessItemDirectorypart of the organization");
+              
+                JOptionPane.showMessageDialog(null, "not part of the organization");
                 return;
             }
             JOptionPane.showMessageDialog(null, "Login Successful");
@@ -260,10 +266,10 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 layout.next(CardSequencePanel);
             }
 
-            if (role.equals("Hospital")) {
-                Hospital hospital = new Hospital(organization, userLogin);
-                HospitalAdminWorkAreaJPanel hospitalAdminWorkAreaJPanel = new HospitalAdminWorkAreaJPanel(CardSequencePanel, hospital, database, business);
-                CardSequencePanel.add("HospitalAdminWorkAreaJPanel", hospitalAdminWorkAreaJPanel);
+            if (role.equals("Restaurant")) {
+               Restaurant restaurant = new Restaurant(organization, userLogin);
+               RestaurantAdminWorkAreaJPanel restaurantAdminWorkAreaJPanel = new RestaurantAdminWorkAreaJPanel(CardSequencePanel, restaurant, database, business);
+                CardSequencePanel.add("lAdminWorkAreaJPanel", restaurantAdminWorkAreaJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
             }
