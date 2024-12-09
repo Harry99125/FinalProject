@@ -8,8 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import model.Business.Business;
-import ui.Blogs.BlogSelectorJPanel;
-import ui.Blogs.BlogUploadJPanel;
+
 
 
 public class BusinessJPanel extends javax.swing.JPanel {
@@ -182,10 +181,7 @@ public class BusinessJPanel extends javax.swing.JPanel {
 
     private void btnDistributorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDistributorActionPerformed
         // TODO add your handling code here:
-        HospitalAdminJPanel hospitalAdminJPanel = new HospitalAdminJPanel(AdminLayout, database, business);
-        AdminLayout.add("HospitalAdminJPanel", hospitalAdminJPanel);
-        CardLayout layout = (CardLayout) AdminLayout.getLayout();
-        layout.next(AdminLayout);
+      
     }//GEN-LAST:event_btnDistributorActionPerformed
 
     private void btnWarehouseOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWarehouseOpActionPerformed

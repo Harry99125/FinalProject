@@ -318,10 +318,7 @@ public class AddRestaurantJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        MedicalEquipmentAdminJPanel medicalEquipmentAdminJPanel = new MedicalEquipmentAdminJPanel(AdminLayout, database, business);
-        AdminLayout.add("MedicalEquipmentAdminJPanel", medicalEquipmentAdminJPanel);
-        CardLayout layout = (CardLayout) AdminLayout.getLayout();
-        layout.next(AdminLayout);
+      
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtFactoryEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFactoryEmailActionPerformed
