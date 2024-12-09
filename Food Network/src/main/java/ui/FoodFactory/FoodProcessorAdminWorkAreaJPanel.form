@@ -170,10 +170,8 @@
                                       <Component id="txtEquipmentName1" linkSize="6" min="-2" pref="342" max="-2" attributes="0"/>
                                       <Component id="txtEquipmentLocation1" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
                                       <Component id="txtEquipmentContact1" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtEquipmentManagerName2" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
-                                          <Component id="txtEquipmentManagerName1" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="txtEquipmentManagerName2" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="txtEquipmentManagerName1" linkSize="6" min="-2" pref="143" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

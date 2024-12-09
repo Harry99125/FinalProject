@@ -15,6 +15,7 @@ import model.Farmer.Farmer;
 import model.Farmer.Produce;
 
 import java.awt.*;
+import model.Retailer.Retailer;
 import org.bson.Document;
 import ui.Hospital.DoctorListJPanel;
 

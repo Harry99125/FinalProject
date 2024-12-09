@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.Business.Business;
 import model.FoodProcessItem.FoodFactory;
-import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -33,7 +32,6 @@ public class FoodItemsJPanel extends javax.swing.JPanel {
     MongoDatabase database;
     FoodFactory foodFactory;
     Business business;
-    MongoCollection<FoodProcessItemDirectory> equipmentSupplierCollection;
     MongoCollection<Document> supplierEquipmentCollection;
     MongoCollection<Document> medicalEquipmentCollection;
     CRUDOperations crud = new CRUDOperations();

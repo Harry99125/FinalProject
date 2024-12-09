@@ -14,28 +14,17 @@ import javax.swing.*;
 import java.awt.*;
 import model.Farmer.Farmer;
 import model.FoodProcessItem.FoodFactory;
-import model.FoodProcessItem.FoodProcessItemDirectory;
 
 
-import model.Hospital.Hospital;
 
 
 import model.Personnel.Doctor;
 import model.Pharmacy.Pharmacy;
 import model.Restaurant.Restaurant;
-import model.TrainingCenter.TrainingCenter;
-
-import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.organization;
+import model.Retailer.Retailer;
 
 import org.bson.Document;
 import ui.Admin.BusinessJPanel;
-import ui.Doctor.DoctorMainJPanel;
-import ui.Hospital.HospitalAdminWorkAreaJPanel;
-import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
-import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
-
-
-import ui.Hospital.HospitalAdminWorkAreaJPanel;
 
 import ui.Doctor.DoctorMainJPanel;
 import ui.Farmer.FarmerAdminWorkAreaJPanel;
@@ -43,8 +32,8 @@ import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
 import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
 import ui.Restaurant.RestaurantAdminWorkAreaJPanel;
+import ui.Retailer.RetailerAdminWorkAreaJPanel;
 
-import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
 
 
 public class MainLoginJPanel extends javax.swing.JPanel {
@@ -273,9 +262,9 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
             }
-            if (role.equals("Doctor")) {
-                Doctor doctor = new Doctor(organization, userLogin);
-                DoctorMainJPanel doctorMainJPanel = new DoctorMainJPanel(CardSequencePanel, doctor, database, business);
+            if (role.equals("Retailer")) {
+                Retailer retailer = new Retailer(organization, userLogin);
+                RetailerAdminWorkAreaJPanel doctorMainJPanel = new RetailerAdminWorkAreaJPanel(CardSequencePanel, retailer, database, business);
                 CardSequencePanel.add("DoctorMainJPanel", doctorMainJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);

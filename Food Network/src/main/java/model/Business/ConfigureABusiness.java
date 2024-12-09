@@ -2,7 +2,6 @@ package model.Business;
 
 import database.DataBaseConnection;
 import model.Hospital.Hospital;
-import model.FoodProcessItem.FoodProcessItemDirectory;
 import model.Personnel.Researcher;
 import model.Pharmacy.Pharmacy;
 import model.TrainingCenter.TrainingCenter;

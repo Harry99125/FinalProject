@@ -11,17 +11,13 @@ import database.CRUDOperations;
 import database.Connection;
 
 import java.awt.CardLayout;
-import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
 import model.FoodProcessItem.FoodFactory;
-import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import ui.MainLoginJPanel;
 
 public class RequestedItemsJPanel extends javax.swing.JPanel {
 
