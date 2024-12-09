@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import model.Warehouse.Warehouse;
 import service.FileSaver;
 
-public class WarehousePListJPanel extends javax.swing.JPanel {
+public class WarehouseFPListJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form WarehousePListJPanel
@@ -35,11 +35,13 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
     MongoDatabase database;
     MongoCollection<Document> collection;
     MongoCollection<Document> produceCollection;
+        MongoCollection<Document> productCollection;
+
     MongoCollection<Document> FarmCollection;
     MongoCollection<Document> FactoryCollection;
     CRUDOperations crud = new CRUDOperations();
 
-    public WarehousePListJPanel(JPanel cardSequencePanel, Business business, Warehouse warehouse, MongoDatabase prevdatabase) {
+    public WarehouseFPListJPanel(JPanel cardSequencePanel, Business business, Warehouse warehouse, MongoDatabase prevdatabase) {
         initComponents();
         this.cardSequencePanel = cardSequencePanel;
         this.business = business;
@@ -49,39 +51,38 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
         this.produceCollection = this.database.getCollection("Produce");
         this.FarmCollection = this.database.getCollection("FarmerProduce");
         this.FactoryCollection = this.database.getCollection("FactoryProduct");
+        this.productCollection = this.database.getCollection("Product");
         populateTable();
     }
 
     public void populateTable() {
-                DefaultTableModel model = (DefaultTableModel) tableProduceList.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableProduceList.getModel();
         model.setRowCount(0); // Clear existing rows in the table
 
         try {
-            // Fetch and display data from FarmerProduce
-            FindIterable<Document> farmerProduces = FarmCollection.find();
-            try (MongoCursor<Document> cursor = farmerProduces.iterator()) {
+            // Fetch and display data from FactoryProduct
+            FindIterable<Document> factoryProducts = FactoryCollection.find();
+            try (MongoCursor<Document> cursor = factoryProducts.iterator()) {
                 while (cursor.hasNext()) {
-                    Document farmerProduceDoc = cursor.next();
-                    ObjectId produceId = new ObjectId(farmerProduceDoc.getString("produceId"));
+                    Document factoryProductDoc = cursor.next();
+                    ObjectId productId = new ObjectId(factoryProductDoc.getString("productId"));
 
-                    // Fetch produce details from Produce collection
-                    Document produceDoc = crud.getFirstRecordByKey("_id", produceId, produceCollection);
+                    // Fetch product details from Produce collection (assuming same collection for simplicity)
+                    Document productDoc = crud.getFirstRecordByKey("_id", productId, productCollection);
 
-                    if (produceDoc != null) {
+                    if (productDoc != null) {
                         Object[] row = new Object[]{
-                            produceDoc.getString("produceName"),
-                            produceDoc.getString("produceCategory"),
-                            farmerProduceDoc.getInteger("stockQuantity"),
-                            "Farmer: " + farmerProduceDoc.getString("farmerId")
+                            productDoc.getString("productName"), // Or "productName" if using a different collection
+                            productDoc.getString("productDescription"), // Or "productCategory"
+                            factoryProductDoc.getInteger("quantity"),
+                            "Factory: " + factoryProductDoc.getString("factoryId")
                         };
                         model.addRow(row); // Add the row to the table model
                     } else {
-                        System.err.println("No produce found for ID: " + produceId);
+                        System.err.println("No product found for ID: " + productId);
                     }
                 }
             }
-
-           
 
         } catch (Exception e) {
             System.err.println("Error populating table: " + e.getMessage());
@@ -115,7 +116,7 @@ public class WarehousePListJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Name", "Category", "Quantity", "Farmer Name"
+                "Name", "Description", "Quantity", "Farmer Name"
             }
         ));
         jScrollPane1.setViewportView(tableProduceList);

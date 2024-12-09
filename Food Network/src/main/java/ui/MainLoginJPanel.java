@@ -18,21 +18,19 @@ import model.FoodProcessItem.FoodFactory;
 
 
 
-import model.Personnel.Doctor;
-import model.Pharmacy.Pharmacy;
 import model.Restaurant.Restaurant;
 import model.Retailer.Retailer;
+import model.Warehouse.Warehouse;
 
 import org.bson.Document;
 import ui.Admin.BusinessJPanel;
 
-import ui.Doctor.DoctorMainJPanel;
 import ui.Farmer.FarmerAdminWorkAreaJPanel;
 import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
-import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
 import ui.Restaurant.RestaurantAdminWorkAreaJPanel;
 import ui.Retailer.RetailerAdminWorkAreaJPanel;
+import ui.Warehouse.WarehouseAdminWorkAreaJPanel;
 
 
 
@@ -233,13 +231,6 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 return;
             }
             JOptionPane.showMessageDialog(null, "Login Successful");
-            if (role.equals("Pharmacy")) {
-                Pharmacy pharmacy = new Pharmacy(organization, userLogin);
-                PharmacyAdminWorkAreaJPanel pharmacyAdminWorkAreaJPanel = new PharmacyAdminWorkAreaJPanel(CardSequencePanel, pharmacy, database);
-                CardSequencePanel.add("PharmacyAdminWorkAreaJPanel", pharmacyAdminWorkAreaJPanel);
-                CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
-                layout.next(CardSequencePanel);
-            }
             if (role.equals("FoodProcessor")) {
                 FoodFactory foodProcessItemDirectory = new FoodFactory(organization, userLogin);
                 FoodProcessorAdminWorkAreaJPanel foodProcessorAdminWorkAreaJPanel = new FoodProcessorAdminWorkAreaJPanel(CardSequencePanel, foodProcessItemDirectory, database, business);
@@ -266,6 +257,14 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 Retailer retailer = new Retailer(organization, userLogin);
                 RetailerAdminWorkAreaJPanel doctorMainJPanel = new RetailerAdminWorkAreaJPanel(CardSequencePanel, retailer, database, business);
                 CardSequencePanel.add("DoctorMainJPanel", doctorMainJPanel);
+                CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
+                layout.next(CardSequencePanel);
+
+            }
+             if (role.equals("Warehouse")) {
+                Warehouse retailer = new Warehouse(organization, userLogin);
+                WarehouseAdminWorkAreaJPanel warehouseAdminWorkAreaJPanel = new WarehouseAdminWorkAreaJPanel(CardSequencePanel, retailer, database, business);
+                CardSequencePanel.add("DoctorMainJPanel", warehouseAdminWorkAreaJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
                 layout.next(CardSequencePanel);
 

@@ -1,13 +1,9 @@
 package model.Warehouse;
 
-import model.Restaurant.*;
-import model.Restaurant.Restaurant.*;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import java.util.ArrayList;
-import service.FarmerService;
 import service.RestaurantService;
 
 public class Warehouse {
@@ -61,15 +57,12 @@ public class Warehouse {
     }
 
     public String getWarehouseManageName() {
-        return WarehouseManageName;
+        return WarehouseAdminId;
     }
 
     public void setWarehouseManageName(String WarehouseManageName) {
         this.WarehouseManageName = WarehouseManageName;
     }
-
-   
-
 
     private ObjectId WarehouseId;
     private String WarehouseName;
@@ -87,13 +80,13 @@ public class Warehouse {
     public void setRestaurantService(RestaurantService RestaurantService) {
         this.RestaurantService = RestaurantService;
     }
-    
-   RestaurantService  RestaurantService = new  RestaurantService();
+
+    RestaurantService RestaurantService = new RestaurantService();
 
     public Warehouse(String RestaurantName, String RestaurantAdminId, String RestaurantAddress, String RestaurantContact, String RestaurantEmail) {
         this.WarehouseName = RestaurantName;
         this.produceDirectory = new WarehouseProduceDirectory();
-        this.WarehouseAdminId =RestaurantAdminId;
+        this.WarehouseAdminId = RestaurantAdminId;
         this.Warehouselocation = RestaurantAddress;
         this.Warehousecontact = RestaurantContact;
         this.Warehouseemail = RestaurantEmail;
@@ -107,9 +100,8 @@ public class Warehouse {
         this.Warehouseemail = organization.getString("warehouseEmail");
         this.produceDirectory = new WarehouseProduceDirectory();
         this.WarehouseAdminId = userLogin.getString("username");
+        
     }
-
-  
 
     private void updateQuantity(int quantity, WarehouseProduce produce) {
 
@@ -139,8 +131,8 @@ public class Warehouse {
         return produceDirectory.getCategoryList();
     }
 
-    public boolean isMatch(String farmerName) {
-        return this.farmName.equalsIgnoreCase(farmerName);
+    public boolean isMatch(String warehouseName) {
+        return this.WarehouseName.equalsIgnoreCase(warehouseName);
     }
 
     public boolean authenticateAdmin(String adminUserName) {
@@ -150,8 +142,6 @@ public class Warehouse {
         return false;
     }
 
-   
-
     public WarehouseProduceDirectory getProduceDirectory() {
         return produceDirectory;
     }
@@ -160,21 +150,10 @@ public class Warehouse {
         this.produceDirectory = produceDirectory;
     }
 
-   
-
     @Override
     public String toString() {
         return WarehouseName;
     }
-
- 
-    public void updateFarmer(Warehouse farmer, MongoDatabase database) {
-        RestaurantService.updateRestaurant(farmer, database);
-    }
-    
-  
-    
-    
 
     public Document toDocument() {
         return new Document("RestaurantName", WarehouseName)
