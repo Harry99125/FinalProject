@@ -10,10 +10,10 @@ import database.CRUDOperations;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Business.Business;
+import model.FoodProcessItem.FoodFactory;
 import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import org.bson.Document;
-
 
 public class AdditemJPanel extends javax.swing.JPanel {
 
@@ -26,11 +26,15 @@ public class AdditemJPanel extends javax.swing.JPanel {
     Business business;
     MongoCollection<FoodProcessItemDirectory> EquipmentSupplierCollection;
     CRUDOperations crud = new CRUDOperations();
+    FoodFactory foodFactory;
 
-    public AdditemJPanel(JPanel CardSequencePanel, MongoDatabase database, Business business) {
+    public AdditemJPanel(JPanel cardSequencePanel, MongoDatabase database, Business business, FoodFactory foodFactory) {
         initComponents();
-        this.medicalEquipmentSupplier = medicalEquipmentSupplier;
         this.database = database;
+        this.business = business;
+        this.cardSequencePanel = cardSequencePanel;
+        this.database = database;
+        this.foodFactory = foodFactory;
         this.business = business;
     }
 
@@ -44,78 +48,78 @@ public class AdditemJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         addMedicalEquipmentList = new javax.swing.JPanel();
-        lblAddMedicalEquipmentTitle = new javax.swing.JLabel();
-        txtEquipmentType = new javax.swing.JTextField();
-        lblEquipmentNameNew = new javax.swing.JLabel();
-        lblEquipmentType = new javax.swing.JLabel();
-        lblEquipmentDescription = new javax.swing.JLabel();
-        lblEquipmentPurpose = new javax.swing.JLabel();
-        txtEquipmentDescription = new javax.swing.JTextField();
-        txtEquipmentName = new javax.swing.JTextField();
-        btnAddNewEquipment = new javax.swing.JButton();
-        txtEquipmentPurpose = new javax.swing.JTextField();
+        lblAddInventoryTitle = new javax.swing.JLabel();
+        txtProductQuantity = new javax.swing.JTextField();
+        lblProduct = new javax.swing.JLabel();
+        lblQuantity = new javax.swing.JLabel();
+        lblItemDes = new javax.swing.JLabel();
+        lblPrice = new javax.swing.JLabel();
+        txtProductDescription = new javax.swing.JTextField();
+        txtProductName = new javax.swing.JTextField();
+        btnAddProduct = new javax.swing.JButton();
+        txtProductPrice = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
         addMedicalEquipmentList.setBackground(new java.awt.Color(255, 223, 164));
 
-        lblAddMedicalEquipmentTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblAddMedicalEquipmentTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAddMedicalEquipmentTitle.setText("ADD ITEM DETAILS");
-        lblAddMedicalEquipmentTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblAddInventoryTitle.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblAddInventoryTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddInventoryTitle.setText("ADD PRODUCT DETAILS");
+        lblAddInventoryTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtEquipmentType.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEquipmentType.addActionListener(new java.awt.event.ActionListener() {
+        txtProductQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEquipmentTypeActionPerformed(evt);
+                txtProductQuantityActionPerformed(evt);
             }
         });
 
-        lblEquipmentNameNew.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblEquipmentNameNew.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEquipmentNameNew.setText("        Item Name :");
+        lblProduct.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblProduct.setText("Product");
 
-        lblEquipmentType.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblEquipmentType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEquipmentType.setText("          Number :");
+        lblQuantity.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQuantity.setText("Quantity");
 
-        lblEquipmentDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblEquipmentDescription.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEquipmentDescription.setText("Equipment Description :");
+        lblItemDes.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblItemDes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblItemDes.setText("Item Description");
 
-        lblEquipmentPurpose.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        lblEquipmentPurpose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEquipmentPurpose.setText("     Equipment Purpose :");
+        lblPrice.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        lblPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrice.setText("     Price :");
 
-        txtEquipmentDescription.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEquipmentDescription.addActionListener(new java.awt.event.ActionListener() {
+        txtProductDescription.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEquipmentDescriptionActionPerformed(evt);
+                txtProductDescriptionActionPerformed(evt);
             }
         });
 
-        txtEquipmentName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEquipmentName.addActionListener(new java.awt.event.ActionListener() {
+        txtProductName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEquipmentNameActionPerformed(evt);
+                txtProductNameActionPerformed(evt);
             }
         });
 
-        btnAddNewEquipment.setBackground(new java.awt.Color(255, 102, 0));
-        btnAddNewEquipment.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        btnAddNewEquipment.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNewEquipment.setText("Add Equipment");
-        btnAddNewEquipment.addActionListener(new java.awt.event.ActionListener() {
+        btnAddProduct.setBackground(new java.awt.Color(255, 102, 0));
+        btnAddProduct.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddProduct.setText("Add Product");
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddNewEquipmentActionPerformed(evt);
+                btnAddProductActionPerformed(evt);
             }
         });
 
-        txtEquipmentPurpose.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEquipmentPurpose.addActionListener(new java.awt.event.ActionListener() {
+        txtProductPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEquipmentPurposeActionPerformed(evt);
+                txtProductPriceActionPerformed(evt);
             }
         });
 
@@ -137,22 +141,22 @@ public class AdditemJPanel extends javax.swing.JPanel {
                 .addGap(100, 100, 100)
                 .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.CENTER, addMedicalEquipmentListLayout.createSequentialGroup()
-                        .addComponent(lblAddMedicalEquipmentTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAddInventoryTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(100, 100, 100))
                     .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
                         .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEquipmentType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEquipmentNameNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEquipmentDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblEquipmentPurpose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblItemDes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtEquipmentType, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                            .addComponent(txtEquipmentName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(txtEquipmentDescription)
+                            .addComponent(txtProductQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(txtProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txtProductDescription)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnAddNewEquipment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEquipmentPurpose, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                                .addComponent(btnAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtProductPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
                         .addGap(147, 147, 147))))
             .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -160,7 +164,7 @@ public class AdditemJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        addMedicalEquipmentListLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtEquipmentDescription, txtEquipmentName, txtEquipmentPurpose, txtEquipmentType});
+        addMedicalEquipmentListLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtProductDescription, txtProductName, txtProductPrice, txtProductQuantity});
 
         addMedicalEquipmentListLayout.setVerticalGroup(
             addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,113 +172,127 @@ public class AdditemJPanel extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(lblAddMedicalEquipmentTitle)
+                .addComponent(lblAddInventoryTitle)
                 .addGap(50, 50, 50)
                 .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
                         .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
-                                .addComponent(lblEquipmentNameNew)
+                                .addComponent(lblProduct)
                                 .addGap(82, 82, 82))
                             .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
-                                .addComponent(lblEquipmentType)
+                                .addComponent(lblQuantity)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblEquipmentDescription)))
+                                .addComponent(lblItemDes)))
                         .addGap(18, 18, 18)
-                        .addComponent(lblEquipmentPurpose))
+                        .addComponent(lblPrice))
                     .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
                         .addGroup(addMedicalEquipmentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
-                                .addComponent(txtEquipmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58)
-                                .addComponent(txtEquipmentDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(addMedicalEquipmentListLayout.createSequentialGroup()
-                                .addComponent(txtEquipmentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)))
                         .addGap(18, 18, 18)
-                        .addComponent(txtEquipmentPurpose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAddNewEquipment, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(73, 73, 73))
         );
 
-        addMedicalEquipmentListLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblEquipmentDescription, lblEquipmentNameNew, lblEquipmentPurpose, lblEquipmentType});
+        addMedicalEquipmentListLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblItemDes, lblPrice, lblProduct, lblQuantity});
 
         add(addMedicalEquipmentList, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtEquipmentTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipmentTypeActionPerformed
+    private void txtProductQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductQuantityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEquipmentTypeActionPerformed
+    }//GEN-LAST:event_txtProductQuantityActionPerformed
 
-    private void txtEquipmentDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipmentDescriptionActionPerformed
+    private void txtProductDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductDescriptionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEquipmentDescriptionActionPerformed
+    }//GEN-LAST:event_txtProductDescriptionActionPerformed
 
-    private void txtEquipmentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipmentNameActionPerformed
+    private void txtProductNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEquipmentNameActionPerformed
+    }//GEN-LAST:event_txtProductNameActionPerformed
 
-    private void btnAddNewEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewEquipmentActionPerformed
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         // TODO add your handling code here:
         // Get input from text fields
-        String supplierId = medicalEquipmentSupplier.getId().toString();
 
-        String equipmentName = txtEquipmentName.getText();
-        String equipmentType = txtEquipmentType.getText();
-        String equipmentPurpose = txtEquipmentPurpose.getText();
-        String equipmentDescription = txtEquipmentDescription.getText();
+        String factoryId = foodFactory.getFactoryId().toString();
+
+        String productName = txtProductName.getText();
+        String productPrice = txtProductPrice.getText();
+        String productDescription = txtProductDescription.getText();
+        String productQuantity = txtProductQuantity.getText();
 
         // Validate inputs
-        if (equipmentName.isEmpty() || equipmentType.isEmpty() || equipmentPurpose.isEmpty() || equipmentDescription.isEmpty()) {
+        if (productName.isEmpty() || productPrice.isEmpty() || productDescription.isEmpty() || productQuantity.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please fill all the details", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Database connection should be established here (not shown)
-        // Check if the equipment already exists in the MedicalEquipment collection
-        Document existingEquipment = crud.getFirstRecordByKey("equipmentName", equipmentName, this.database.getCollection("MedicalEquipment"));
-        if (existingEquipment != null) {
-            String equipmentId = existingEquipment.getObjectId("_id").toString();
+        // Validate numeric inputs
+        double price;
+        int quantity;
+        try {
+            price = Double.parseDouble(productPrice);
+            quantity = Integer.parseInt(productQuantity);
+            if (price <= 0 || quantity <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Price and Quantity must be valid positive numbers", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            // Check if this equipment is already linked with the current supplier in the SupplierEquipment table
-            Document existingSupplierEquipment = crud.getRecordByTwoKeys("equipmentId", equipmentId, "supplierId", supplierId, this.database.getCollection("SupplierEquipment"));
-            if (existingSupplierEquipment != null) {
-                JOptionPane.showMessageDialog(null, "Equipment already present with supplier", "Duplication Error", JOptionPane.ERROR_MESSAGE);
+        // Check if the product already exists in the Product collection
+        Document existingProduct = crud.getFirstRecordByKey("productName", productName, this.database.getCollection("Product"));
+        if (existingProduct != null) {
+            String productId = existingProduct.getObjectId("_id").toString();
+
+            // Check if this product is already linked with the current factory in the FactoryProduct table
+            Document existingFactoryProduct = crud.getRecordByTwoKeys("productId", productId, "factoryId", factoryId, this.database.getCollection("FactoryProduct"));
+            if (existingFactoryProduct != null) {
+                JOptionPane.showMessageDialog(null, "Product already exists in the factory inventory", "Duplication Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                // Link existing equipment with the current supplier
-                Document newSupplierEquipment = new Document()
-                        .append("supplierId", supplierId)
-                        .append("equipmentId", equipmentId);
-                this.database.getCollection("SupplierEquipment").insertOne(newSupplierEquipment);
-                JOptionPane.showMessageDialog(null, "Equipment added to supplier", "Success", JOptionPane.INFORMATION_MESSAGE);
+                // Link existing product with the current factory
+                Document newFactoryProduct = new Document()
+                        .append("factoryId", factoryId)
+                        .append("productId", productId)
+                        .append("quantity", quantity)
+                        .append("price", price);
+                this.database.getCollection("FactoryProduct").insertOne(newFactoryProduct);
+                JOptionPane.showMessageDialog(null, "Product linked to the factory successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            // Equipment does not exist, add new equipment
-            Document newEquipment = new Document()
-                    .append("equipmentName", equipmentName)
-                    .append("equipmentType", equipmentType)
-                    .append("equipmentDescription", equipmentDescription)
-                    .append("equipmentPurpose", equipmentPurpose);
-            this.database.getCollection("MedicalEquipment").insertOne(newEquipment);
-            String newEquipmentId = newEquipment.getObjectId("_id").toString();
+            // Product does not exist, add new product
+            Document newProduct = new Document()
+                    .append("productName", productName)
+                    .append("productDescription", productDescription);
+            this.database.getCollection("Product").insertOne(newProduct);
+            String newProductId = newProduct.getObjectId("_id").toString();
 
-            // Also link this new equipment with the supplier
-            Document newSupplierEquipment = new Document()
-                    .append("supplierId", supplierId)
-                    .append("equipmentId", newEquipmentId);
-            this.database.getCollection("SupplierEquipment").insertOne(newSupplierEquipment);
-            JOptionPane.showMessageDialog(null, "New equipment added and linked with the supplier", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // Also link this new product with the factory
+            Document newFactoryProduct = new Document()
+                    .append("factoryId", factoryId)
+                    .append("productId", newProductId)
+                    .append("quantity", quantity)
+                    .append("price", price);
+            this.database.getCollection("FactoryProduct").insertOne(newFactoryProduct);
+            JOptionPane.showMessageDialog(null, "New product added and linked with the factory successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
-        txtEquipmentName.setText("");
-        txtEquipmentType.setText("");
-        txtEquipmentPurpose.setText("");
-        txtEquipmentDescription.setText("");
-    }//GEN-LAST:event_btnAddNewEquipmentActionPerformed
 
-    private void txtEquipmentPurposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipmentPurposeActionPerformed
+
+    }//GEN-LAST:event_btnAddProductActionPerformed
+
+    private void txtProductPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductPriceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEquipmentPurposeActionPerformed
+    }//GEN-LAST:event_txtProductPriceActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
@@ -285,16 +303,16 @@ public class AdditemJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addMedicalEquipmentList;
-    private javax.swing.JButton btnAddNewEquipment;
+    private javax.swing.JButton btnAddProduct;
     private javax.swing.JButton btnBack;
-    private javax.swing.JLabel lblAddMedicalEquipmentTitle;
-    private javax.swing.JLabel lblEquipmentDescription;
-    private javax.swing.JLabel lblEquipmentNameNew;
-    private javax.swing.JLabel lblEquipmentPurpose;
-    private javax.swing.JLabel lblEquipmentType;
-    private javax.swing.JTextField txtEquipmentDescription;
-    private javax.swing.JTextField txtEquipmentName;
-    private javax.swing.JTextField txtEquipmentPurpose;
-    private javax.swing.JTextField txtEquipmentType;
+    private javax.swing.JLabel lblAddInventoryTitle;
+    private javax.swing.JLabel lblItemDes;
+    private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblProduct;
+    private javax.swing.JLabel lblQuantity;
+    private javax.swing.JTextField txtProductDescription;
+    private javax.swing.JTextField txtProductName;
+    private javax.swing.JTextField txtProductPrice;
+    private javax.swing.JTextField txtProductQuantity;
     // End of variables declaration//GEN-END:variables
 }

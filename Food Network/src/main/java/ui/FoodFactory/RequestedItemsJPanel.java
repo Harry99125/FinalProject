@@ -16,12 +16,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import model.Business.Business;
+import model.FoodProcessItem.FoodFactory;
 import model.FoodProcessItem.FoodProcessItemDirectory;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import ui.MainLoginJPanel;
-
 
 public class RequestedItemsJPanel extends javax.swing.JPanel {
 
@@ -30,51 +30,43 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
      */
     JPanel cardSequencePanel;
     MongoDatabase database;
-    FoodProcessItemDirectory medicalEquipmentSupplier;
+    FoodFactory fpFactory;
     Business business;
-    MongoCollection<Document> supplierCollection;
-    MongoCollection<Document> equipmentCollection;
-    MongoCollection<Document> supplierEquipmentCollection;
-    MongoCollection<Document> requestEquipmentCollection;
-    MongoCollection<Document> hospitalCollection;
     CRUDOperations crudOperations = new CRUDOperations();
 
-    public RequestedItemsJPanel(JPanel cardSequencePanel, FoodProcessItemDirectory medicalEquipmentSupplier, MongoDatabase databases, Business business) {
+    public RequestedItemsJPanel(JPanel cardSequencePanel, FoodFactory fpFactory, MongoDatabase databases, Business business) {
         initComponents();
         this.cardSequencePanel = cardSequencePanel;
-        this.medicalEquipmentSupplier = medicalEquipmentSupplier;
+        this.fpFactory = fpFactory;
         this.database = new Connection().connectToDatabase();
         this.business = business;
-        supplierCollection = database.getCollection("Supplier");
-        equipmentCollection = database.getCollection("MedicalEquipment");
-        supplierEquipmentCollection = database.getCollection("SupplierEquipment");
-        requestEquipmentCollection = database.getCollection("RequestEquipment");
-        hospitalCollection = database.getCollection("Hospital");
 
         populateRequestedItems();
     }
 
     private void populateRequestedItems() {
         DefaultTableModel model = (DefaultTableModel) tblRequestedItems.getModel();
-        model.setRowCount(0); // Clear the existing table
+        model.setRowCount(0); // Clear existing table data
 
-//        find all the equipments that were requested for this supplier
-        FindIterable<Document> requestEquipment = crudOperations.getRecordsByKey("supplierId", medicalEquipmentSupplier.getId().toString(), requestEquipmentCollection);
-        for (Document document : requestEquipment) {
-            String equipmentId = document.getString("equipmentId");
-            String status = document.getString("status");
-            System.out.println("equipmentId: " + equipmentId);
-            System.out.println("status: " + status);
-            Document equipment = crudOperations.getFirstRecordByKey("_id", new ObjectId(equipmentId), equipmentCollection);
-            System.out.println("equipment: " + equipment);
-            String equipmentName = equipment.getString("equipmentName");
-            String equipmentPurpose = equipment.getString("equipmentPurpose");
-            String hospitalId = document.getString("hospitalId");
-            Document hospital = crudOperations.getFirstRecordByKey("_id", new ObjectId(hospitalId), hospitalCollection);
-            String hospitalName = hospital.getString("hospitalName");
-            String hospitalLocation = hospital.getString("hospitalLocation");
-            Object[] row = {equipmentName, equipmentPurpose, hospitalName, hospitalLocation, status};
-            model.addRow(row);
+        try {
+            // Retrieve all produce requests for this Food Factory
+            MongoCollection<Document> requestProduceCollection = database.getCollection("RequestProduce");
+            FindIterable<Document> requestProduce = crudOperations.getRecordsByKey("factoryId", fpFactory.getFactoryId().toString(), requestProduceCollection);
+
+            for (Document request : requestProduce) {
+                // Retrieve details from the request document
+                String produceName = request.getString("produceName");
+                double requestedPrice = request.getDouble("requestedPrice");
+                int quantity = request.getInteger("quantity", 0); // Default to 0 if not present
+                String status = request.getString("status");
+
+                // Add a row for each produce request
+                Object[] row = {produceName, requestedPrice, quantity, status};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching requested items. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -102,7 +94,7 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Item Name", "Receiver Name", "Quantity", "Status"
+                "Produce Name", "Requested Price", "Quantity", "Status"
             }
         ));
         jScrollPane1.setViewportView(tblRequestedItems);
@@ -110,7 +102,7 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
         btnUpdateStatus.setBackground(new java.awt.Color(255, 102, 0));
         btnUpdateStatus.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         btnUpdateStatus.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdateStatus.setText("Update Status");
+        btnUpdateStatus.setText("Add Request");
         btnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateStatusActionPerformed(evt);
@@ -119,7 +111,7 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
 
         lblMedicalEquipment1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         lblMedicalEquipment1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMedicalEquipment1.setText("REQUESTED EQUIPMENTS");
+        lblMedicalEquipment1.setText("REQUESTED PRODUCE");
         lblMedicalEquipment1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -131,7 +123,9 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMedicalEquipment1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdateStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnUpdateStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,30 +135,18 @@ public class RequestedItemsJPanel extends javax.swing.JPanel {
                 .addComponent(lblMedicalEquipment1)
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(btnUpdateStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStatusActionPerformed
         // TODO add your handling code here:
-        String status = JOptionPane.showInputDialog("Enter the status of the equipment");
-        int selectedRow = tblRequestedItems.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a row from the table first to update the status", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        String equipmentName = tblRequestedItems.getValueAt(selectedRow, 0).toString();
-        Document equipment = crudOperations.getFirstRecordByKey("equipmentName", equipmentName, equipmentCollection);
-        String equipmentId = equipment.getObjectId("_id").toString();
-        String hospitalName = tblRequestedItems.getValueAt(selectedRow, 2).toString();
-        Document hospital = crudOperations.getFirstRecordByKey("hospitalName", hospitalName, hospitalCollection);
-        String hospitalId = hospital.getObjectId("_id").toString();
-        Document requestEquipment = crudOperations.getRecordByTwoKeys("equipmentId", equipmentId, "hospitalId", hospitalId, requestEquipmentCollection);
-        ObjectId requestId = requestEquipment.getObjectId("_id");
-        crudOperations.updateStringById(requestId, "status", status, requestEquipmentCollection);
-        populateRequestedItems();
+        AddProduceRequestJPanel addRequestPanel = new AddProduceRequestJPanel(cardSequencePanel, fpFactory, database);
+        cardSequencePanel.add("AddRequestJPanel", addRequestPanel);
+        CardLayout layout = (CardLayout) cardSequencePanel.getLayout();
+        layout.next(cardSequencePanel);
     }//GEN-LAST:event_btnUpdateStatusActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

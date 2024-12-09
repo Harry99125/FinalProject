@@ -13,6 +13,7 @@ import model.Business.Business;
 import javax.swing.*;
 import java.awt.*;
 import model.Farmer.Farmer;
+import model.FoodProcessItem.FoodFactory;
 import model.FoodProcessItem.FoodProcessItemDirectory;
 
 
@@ -245,7 +246,7 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 layout.next(CardSequencePanel);
             }
             if (role.equals("FoodProcessor")) {
-                FoodProcessItemDirectory foodProcessItemDirectory = new FoodProcessItemDirectory(organization, userLogin);
+                FoodFactory foodProcessItemDirectory = new FoodFactory(organization, userLogin);
                 FoodProcessorAdminWorkAreaJPanel foodProcessorAdminWorkAreaJPanel = new FoodProcessorAdminWorkAreaJPanel(CardSequencePanel, foodProcessItemDirectory, database, business);
                 CardSequencePanel.add("FoodProcessorAdminWorkAreaJPanel", foodProcessorAdminWorkAreaJPanel);
                 CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
