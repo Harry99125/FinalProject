@@ -218,6 +218,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void btnRestaurantManagerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurantManagerLoginActionPerformed
         // TODO add your handling code here:
         goToLoginPage("Restaurant");
+        System.out.println("Restaurant");
     }//GEN-LAST:event_btnRestaurantManagerLoginActionPerformed
 
     private void btnLivestockLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLivestockLoginActionPerformed
