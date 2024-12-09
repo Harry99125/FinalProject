@@ -17,35 +17,31 @@ import model.FoodProcessItem.FoodFactory;
 import model.FoodProcessItem.FoodProcessItemDirectory;
 
 
-import model.Hospital.Hospital;
 
 
-import model.Personnel.Doctor;
-import model.Pharmacy.Pharmacy;
+
+
 import model.Restaurant.Restaurant;
-import model.TrainingCenter.TrainingCenter;
+
 import model.Warehouse.Warehouse;
 
 import static org.bouncycastle.asn1.x509.X509ObjectIdentifiers.organization;
 
 import org.bson.Document;
 import ui.Admin.BusinessJPanel;
-import ui.Doctor.DoctorMainJPanel;
-import ui.Hospital.HospitalAdminWorkAreaJPanel;
-import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
-import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
 
 
-import ui.Hospital.HospitalAdminWorkAreaJPanel;
 
-import ui.Doctor.DoctorMainJPanel;
+
+
+
 import ui.Farmer.FarmerAdminWorkAreaJPanel;
 import ui.FoodFactory.FoodProcessorAdminWorkAreaJPanel;
 //import org.bson.types.ObjectId;
-import ui.Pharmacy.PharmacyAdminWorkAreaJPanel;
+
 import ui.Restaurant.RestaurantAdminWorkAreaJPanel;
 
-import ui.TrainingCenter.TrainingCenterAdminWorkAreaJPanel;
+
 import ui.Warehouse.WarehouseAdminWorkAreaJPanel;
 
 
@@ -246,13 +242,7 @@ public class MainLoginJPanel extends javax.swing.JPanel {
                 return;
             }
             JOptionPane.showMessageDialog(null, "Login Successful");
-            if (role.equals("Pharmacy")) {
-                Pharmacy pharmacy = new Pharmacy(organization, userLogin);
-                PharmacyAdminWorkAreaJPanel pharmacyAdminWorkAreaJPanel = new PharmacyAdminWorkAreaJPanel(CardSequencePanel, pharmacy, database);
-                CardSequencePanel.add("PharmacyAdminWorkAreaJPanel", pharmacyAdminWorkAreaJPanel);
-                CardLayout layout = (CardLayout) CardSequencePanel.getLayout();
-                layout.next(CardSequencePanel);
-            }
+           
             if (role.equals("FoodProcessor")) {
                 FoodFactory foodProcessItemDirectory = new FoodFactory(organization, userLogin);
                 FoodProcessorAdminWorkAreaJPanel foodProcessorAdminWorkAreaJPanel = new FoodProcessorAdminWorkAreaJPanel(CardSequencePanel, foodProcessItemDirectory, database, business);
